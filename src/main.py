@@ -12,7 +12,7 @@ if __name__ == "__main__":
         required=True,
         help="The problem to solve in the format 'year/day/part', e.g., '2024/1/a'.",
     )
-    
+
     # Add mutually exclusive group for --test and --submit
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -43,20 +43,14 @@ if __name__ == "__main__":
         # Dynamically import the module
         module = importlib.import_module(module_name)
         if hasattr(module, "solve"):
-            print(
-                f"Solving {year}/{day_formatted.capitalize()} - Part {part}..."
-            )
+            print(f"Solving {year}/{day_formatted.capitalize()} - Part {part}...")
             module.solve(
                 year=year, day=day, part=part, test=args.test, submit_result=args.submit
             )
         else:
-            print(
-                f"The module '{day_formatted}' for year '{year}' does not have a solve() function."
-            )
+            print(f"The module '{day_formatted}'/'{year}' has no solve() function.")
     except ValueError as e:
-        print(
-            f"Invalid problem format or input: {e}. Use 'year/day/part', e.g., '2024/1/a'."
-        )
+        print(f"Invalid format: {e}. Use 'year/day/part', e.g., '2024/1/a'.")
     except ModuleNotFoundError:
         print(f"Module for problem '{args.problem}' not found.")
     except Exception as e:

@@ -1,22 +1,26 @@
-from utils.decorators import time_function
-from aocd import get_data, submit
+from collections import Counter
 from typing import TypeVar
 
-from collections import Counter
+from aocd import get_data, submit
+
+from utils.decorators import time_function
 
 # Define a TypeVar to represent the output type of `parse`
 ParsedType = TypeVar("ParsedType")
+
 
 @time_function
 def part_a(data: ParsedType) -> int:
     left, right = sorted(data[0]), sorted(data[1])
     return sum(abs(a - b) for a, b in zip(left, right))
 
+
 @time_function
 def part_b(data: ParsedType) -> int:
     left, right = data
     c = Counter(right)
     return sum(num * c[num] for num in left)
+
 
 def parse(data: str) -> ParsedType:
     # For each line, split it into 2 numbers, put first in list 1, second in list 2.
@@ -31,33 +35,35 @@ def parse(data: str) -> ParsedType:
         right.append(b)
     return [left, right]
 
+
 def solve(year: int, day: int, part: str, test: bool, submit_result: bool) -> None:
-    
+
     # If we're testing, we need to load the test data instead of the real data.
     # Those are defined as triple quotes strings at the bottom of the file.
     if test:
-        data = part1_testdata if part == 'a' else part2_testdata
+        data = part1_testdata if part == "a" else part2_testdata
     else:
         # Get the correct day's input data, waiting for it to be released if necessary.
         data = get_data(year=year, day=day, block=True)
-    
+
     data = parse(data)
 
     # Run the appropriate part of the solution.
-    if part == 'a':
+    if part == "a":
         result = part_a(data)
-    elif part == 'b':
+    elif part == "b":
         result = part_b(data)
     else:
         print(f"Invalid part: {part}")
         return
-    
+
     # Print the result.
     print(f"Solution: {result}")
 
     # Submit if desired.
     if submit_result:
         submit(result, part=part, year=year, day=day)
+
 
 part1_testdata = """
 3   4
