@@ -65,8 +65,7 @@ def solve(year: int, day: int, part: str, test: bool, submit_result: bool) -> No
         submit(result, part=part, year=year, day=day)
 
 
-part1_testdata = """
-3   4
+part1_testdata = """3   4
 4   3
 2   5
 1   3
@@ -74,8 +73,7 @@ part1_testdata = """
 3   3
 """
 
-part2_testdata = """
-3   4
+part2_testdata = """3   4
 4   3
 2   5
 1   3
