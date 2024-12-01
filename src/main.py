@@ -12,14 +12,20 @@ if __name__ == "__main__":
         required=True,
         help="The problem to solve in the format 'year/day/part', e.g., '2024/1/a'.",
     )
-    parser.add_argument(
+    
+    # Add mutually exclusive group for --test and --submit
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
         "--test",
         action="store_true",
         help="Solve the test input instead of the puzzle input.",
     )
-    parser.add_argument(
-        "--submit", action="store_true", help="Run the code but do not submit it."
+    group.add_argument(
+        "--submit",
+        action="store_true",
+        help="Submit the solution after solving it.",
     )
+
     args = parser.parse_args()
 
     # Parse the --problem argument
@@ -38,7 +44,7 @@ if __name__ == "__main__":
         module = importlib.import_module(module_name)
         if hasattr(module, "solve"):
             print(
-                f"Solving {year}/{day_formatted.capitalize()} - Part {part.upper()}..."
+                f"Solving {year}/{day_formatted.capitalize()} - Part {part}..."
             )
             module.solve(
                 year=year, day=day, part=part, test=args.test, submit_result=args.submit
