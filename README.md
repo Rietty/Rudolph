@@ -1,2 +1,2 @@
-# Rudolph
-Advent of Code: Snake Edition!
+<!-- AOC TILES BEGIN -->
+<!-- AOC TILES END -->
