@@ -3,19 +3,19 @@ from typing import TypeVar
 
 from aocd import get_data, submit
 
-from utils.decorators import time_function
+from utils.decorators import benchmark
 
 # Define a TypeVar to represent the output type of `parse`
 ParsedType = TypeVar("ParsedType")
 
 
-@time_function
+@benchmark
 def part_a(data: ParsedType) -> int:
     left, right = sorted(data[0]), sorted(data[1])
     return sum(abs(a - b) for a, b in zip(left, right))
 
 
-@time_function
+@benchmark
 def part_b(data: ParsedType) -> int:
     left, right = data
     c = Counter(right)

@@ -2,13 +2,13 @@ from typing import TypeVar
 
 from aocd import get_data, submit
 
-from utils.decorators import time_function
+from utils.decorators import benchmark
 
 # Define a TypeVar to represent the output type of `parse`
 ParsedType = TypeVar("ParsedType")
 
 
-@time_function
+@benchmark
 def part_a(data: ParsedType) -> int:
     floor = 0
     for c in data:
@@ -19,7 +19,7 @@ def part_a(data: ParsedType) -> int:
     return floor
 
 
-@time_function
+@benchmark
 def part_b(data: ParsedType) -> int:
     floor = 0
     char = 1

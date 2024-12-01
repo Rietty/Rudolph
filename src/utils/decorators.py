@@ -3,7 +3,7 @@ from typing import Callable
 
 
 # Decorator to measure the time taken by a function to execute and print the results.
-def time_function(func: Callable[..., int]) -> Callable[..., int]:
+def benchmark(func: Callable[..., int]) -> Callable[..., int]:
 
     # Used to measure the time taken to execute via the perf_counter.
     # Returns result and prints the time taken to execute the function.
