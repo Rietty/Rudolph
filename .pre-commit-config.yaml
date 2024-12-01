@@ -23,4 +23,4 @@ repos:
   rev: 0.6.2
   hooks:
     - id: aoc-tiles
-      args: [--auto-add-tiles-to-git=amend]
+      args: [--auto-add-tiles-to-git=amend, --create-all-days=True]
