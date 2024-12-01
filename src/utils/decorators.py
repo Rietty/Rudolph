@@ -1,12 +1,12 @@
-from typing import Callable
 import time
+from typing import Callable
 
 
 # Decorator to measure the time taken by a function to execute and print the results.
 def time_function(func: Callable[..., int]) -> Callable[..., int]:
 
-    # This wrapper will be used to measure the time taken by the function to execute via the `time` module's `perf_counter` function.
-    # It then returns the result of the function and prints the time taken.
+    # Used to measure the time taken to execute via the perf_counter.
+    # Returns result and prints the time taken to execute the function.
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()
         result = func(*args, **kwargs)
