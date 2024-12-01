@@ -1,6 +1,8 @@
 import argparse
 import importlib
 
+from utils.solver import Problem
+
 if __name__ == "__main__":
     # Create an argument parser.
     parser = argparse.ArgumentParser(
@@ -44,9 +46,10 @@ if __name__ == "__main__":
         module = importlib.import_module(module_name)
         if hasattr(module, "solve"):
             print(f"Solving {year}/{day_formatted.capitalize()} - Part {part}...")
-            module.solve(
-                year=year, day=day, part=part, test=args.test, submit_result=args.submit
+            problem = Problem(
+                year=year, day=day, part=part, test=args.test, publish=args.submit
             )
+            module.solve(problem)
         else:
             print(f"The module '{day_formatted}'/'{year}' has no solve() function.")
     except ValueError as e:
