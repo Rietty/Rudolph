@@ -2,19 +2,34 @@ from utils.decorators import time_function
 from aocd import get_data, submit
 from typing import TypeVar
 
+from collections import Counter
+
 # Define a TypeVar to represent the output type of `parse`
 ParsedType = TypeVar("ParsedType")
 
 @time_function
 def part_a(data: ParsedType) -> int:
-    return 0
+    left, right = sorted(data[0]), sorted(data[1])
+    return sum(abs(a - b) for a, b in zip(left, right))
 
 @time_function
 def part_b(data: ParsedType) -> int:
-    return 0
+    left, right = data
+    c = Counter(right)
+    return sum(num * c[num] for num in left)
 
 def parse(data: str) -> ParsedType:
-    return data # Replace with actual parsing logic.
+    # For each line, split it into 2 numbers, put first in list 1, second in list 2.
+    # Return a list of the two lists.
+    left = []
+    right = []
+    for line in data.split("\n"):
+        if not line:
+            continue
+        a, b = map(int, line.split())
+        left.append(a)
+        right.append(b)
+    return [left, right]
 
 def solve(year: int, day: int, part: str, test: bool, submit_result: bool) -> None:
     
@@ -45,7 +60,19 @@ def solve(year: int, day: int, part: str, test: bool, submit_result: bool) -> No
         submit(result, part=part, year=year, day=day)
 
 part1_testdata = """
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
 """
 
 part2_testdata = """
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
 """
