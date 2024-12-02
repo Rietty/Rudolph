@@ -1,7 +1,10 @@
 import argparse
 import importlib
+import logging
 
-from utils.solver import Problem
+from utils.solver import solve_problem, test_problem
+
+logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     # Create an argument parser.
@@ -42,14 +45,33 @@ if __name__ == "__main__":
         day_formatted = f"day{day:02d}"  # Format day as day01, day02, etc.
         module_name = f"solutions.{year}.{day_formatted}"
 
-        # Dynamically import the module
-        module = importlib.import_module(module_name)
-        if hasattr(module, "solve"):
-            print(f"Solving {year}/{day_formatted.capitalize()} - Part {part}...")
-            problem = Problem(
-                year=year, day=day, part=part, test=args.test, publish=args.submit
-            )
-            module.solve(problem)
+        # Check if the module exists:
+        if module := importlib.import_module(module_name):
+            if args.test:
+                print(
+                    f"Testing {year}/{day_formatted.capitalize()} - Part {part.upper()}..."
+                )
+                test_problem(
+                    part=part,
+                    parse=module.parse,
+                    part_a=module.part_a,
+                    part_b=module.part_b,
+                    test_data_a=module.test_data_a,
+                    test_data_b=module.test_data_b,
+                )
+            else:
+                print(
+                    f"Solving {year}/{day_formatted.capitalize()} - Part {part.upper()}..."
+                )
+                solve_problem(
+                    year=year,
+                    day=day,
+                    part=part,
+                    publish=args.submit,
+                    parse=module.parse,
+                    part_a=module.part_a,
+                    part_b=module.part_b,
+                )
         else:
             print(f"The module '{day_formatted}'/'{year}' has no solve() function.")
     except ValueError as e:
