@@ -18,7 +18,7 @@ def part_b(data: ParsedType) -> int:
 
 
 def parse(data: str) -> ParsedType:
-    return data.splitlines()  # Replace with actual parsing logic.
+    return data  # Replace with actual parsing logic.
 
 
 def solve(problem: Problem) -> None:
