@@ -1,10 +1,8 @@
 # Function to solve the problem
 from dataclasses import dataclass
-from typing import Callable, TypeVar
+from typing import Callable
 
 from aocd import get_data, submit
-
-ParsedType = TypeVar("ParsedType")
 
 
 @dataclass
@@ -16,11 +14,13 @@ class Problem:
     publish: bool
 
 
-def solve_problem(
+def solve_problem[
+    T
+](
     problem: Problem,
-    parse: Callable[[str], ParsedType],
-    part_a: Callable[[ParsedType], int],
-    part_b: Callable[[ParsedType], int],
+    parse: Callable[[str], T],
+    part_a: Callable[[T], int],
+    part_b: Callable[[T], int],
     test_data_a: str,
     test_data_b: str,
 ) -> None:

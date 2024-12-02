@@ -1,11 +1,7 @@
 from dataclasses import dataclass
-from typing import TypeVar
 
 from utils.decorators import benchmark
 from utils.solver import Problem, solve_problem
-
-# Define a TypeVar to represent the output type of `parse`
-ParsedType = TypeVar("ParsedType")
 
 
 @dataclass
@@ -15,7 +11,7 @@ class Command:
 
 
 @benchmark
-def part_a(data: ParsedType) -> int:
+def part_a[T](data: T) -> int:
     horizontal = 0
     depth = 0
     for command in data:
@@ -29,7 +25,7 @@ def part_a(data: ParsedType) -> int:
 
 
 @benchmark
-def part_b(data: ParsedType) -> int:
+def part_b[T](data: T) -> int:
     horizontal = 0
     depth = 0
     aim = 0
@@ -44,7 +40,7 @@ def part_b(data: ParsedType) -> int:
     return horizontal * depth
 
 
-def parse(data: str) -> ParsedType:
+def parse[T](data: str) -> T:
     return list(
         map(
             lambda x: Command(x.split()[0], int(x.split()[1])),

@@ -1,10 +1,7 @@
-from typing import List, TypeVar
+from typing import List
 
 from utils.decorators import benchmark
 from utils.solver import Problem, solve_problem
-
-# Define a TypeVar to represent the output type of `parse`
-ParsedType = TypeVar("ParsedType")
 
 
 def is_safe(row: List[int]) -> bool:
@@ -19,16 +16,14 @@ def is_safe(row: List[int]) -> bool:
 
 
 @benchmark
-def part_a(data: ParsedType) -> int:
+def part_a[T](data: T) -> int:
     return sum(is_safe(row) for row in data)
 
 
 @benchmark
-def part_b(data: ParsedType) -> int:
-    # Do same thing as part a, but also check if removing
+def part_b[T](data: T) -> int:
     # For each row of data, check if it is safe or not.
-    # If it is not safe, then check if removing any 1 element makes it safe
-    # If it does, then increment the count
+    # If it is not safe, then check if removing any 1 element makes it safe.
     safe = 0
     for row in data:
         if is_safe(row):
@@ -42,8 +37,7 @@ def part_b(data: ParsedType) -> int:
     return safe
 
 
-def parse(data: str) -> ParsedType:
-    # Return a list of list of numbers
+def parse[T](data: str) -> T:
     return [[int(x) for x in line.split()] for line in data.strip().splitlines()]
 
 

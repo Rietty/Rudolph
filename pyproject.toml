@@ -1,0 +1,18 @@
+[project]
+name = "Rudolph"
+version = "1.0.0"
+authors = [
+  { name="Juliette H. Lavoie", email="rie.juliette@gmail.com" },
+]
+description = "Advent of Code: Snake Edition!"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Rietty/Rudolph"
+Issues = "https://github.com/Rietty/Rudolph/issues"

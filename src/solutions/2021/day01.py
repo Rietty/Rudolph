@@ -1,14 +1,9 @@
-from typing import TypeVar
-
 from utils.decorators import benchmark
 from utils.solver import Problem, solve_problem
 
-# Define a TypeVar to represent the output type of `parse`
-ParsedType = TypeVar("ParsedType")
-
 
 @benchmark
-def part_a(data: ParsedType) -> int:
+def part_a[T](data: T) -> int:
     count = 0
     for i in range(1, len(data)):
         if data[i] > data[i - 1]:
@@ -17,7 +12,7 @@ def part_a(data: ParsedType) -> int:
 
 
 @benchmark
-def part_b(data: ParsedType) -> int:
+def part_b[T](data: T) -> int:
     count = 0
     for i in range(3, len(data)):
         if sum(data[i - 2 : i + 1]) > sum(data[i - 3 : i]):
@@ -25,7 +20,7 @@ def part_b(data: ParsedType) -> int:
     return count
 
 
-def parse(data: str) -> ParsedType:
+def parse[T](data: str) -> T:
     return list(map(int, data.strip().splitlines()))
 
 
