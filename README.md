@@ -1,6 +1,6 @@
 # Rudolph
 
-Collection of my Advent of Code solutions done in Python (🐍). 
+Advent of Code in Python (🐍). 
 
 <!-- AOC TILES BEGIN -->
 <!-- AOC TILES END -->
