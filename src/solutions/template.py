@@ -1,24 +1,19 @@
-from typing import TypeVar
-
 from utils.decorators import benchmark
 from utils.solver import Problem, solve_problem
 
-# Define a TypeVar to represent the output type of `parse`
-ParsedType = TypeVar("ParsedType")
-
 
 @benchmark
-def part_a(data: ParsedType) -> int:
+def part_a[T](data: T) -> int:
     return 0
 
 
 @benchmark
-def part_b(data: ParsedType) -> int:
+def part_b[T](data: T) -> int:
     return 0
 
 
-def parse(data: str) -> ParsedType:
-    return data.splitlines()  # Replace with actual parsing logic.
+def parse[T](data: str) -> T:
+    return data.splitlines()
 
 
 def solve(problem: Problem) -> None:
