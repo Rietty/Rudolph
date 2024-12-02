@@ -27,13 +27,13 @@ def solve(problem: Problem) -> None:
         parse,
         part_a,
         part_b,
-        part1_testdata,
-        part2_testdata,
+        test_data_a,
+        test_data_b,
     )
 
 
-part1_testdata = """
+test_data_a = """
 """
 
-part2_testdata = """
+test_data_b = """
 """
