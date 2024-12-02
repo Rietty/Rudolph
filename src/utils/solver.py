@@ -1,50 +1,61 @@
-# Function to solve the problem
-from dataclasses import dataclass
+import logging
 from typing import Callable
 
 from aocd import get_data, submit
 
-
-@dataclass
-class Problem:
-    year: int
-    day: int
-    part: str
-    test: bool
-    publish: bool
+logger = logging.getLogger(__name__)
 
 
 def solve_problem[
     T
 ](
-    problem: Problem,
+    year: int,
+    day: int,
+    part: str,
+    publish: bool,
     parse: Callable[[str], T],
     part_a: Callable[[T], int],
     part_b: Callable[[T], int],
-    test_data_a: str,
-    test_data_b: str,
 ) -> None:
-    # If we're testing, we need to load the test data instead of the real data.
-    if problem.test:
-        data = test_data_a if problem.part == "a" else test_data_b
-    else:
-        # Get the correct day's input data.
-        data = get_data(year=problem.year, day=problem.day, block=True)
 
-    data = parse(data)
+    data = parse(get_data(year=year, day=day, block=True))
 
     # Run the appropriate part of the solution.
-    if problem.part == "a":
+    if part == "a":
         result = part_a(data)
-    elif problem.part == "b":
+    elif part == "b":
         result = part_b(data)
     else:
-        print(f"Invalid part: {problem.part}")
+        print(f"Invalid part: {part}")
         return
 
     # Print the result.
     print(f"Solution: {result}")
 
     # Submit if desired.
-    if problem.publish:
-        submit(result, part=problem.part, year=problem.year, day=problem.day)
+    if publish:
+        submit(result, part=part, year=year, day=day, quiet=True)
+
+
+def test_problem[
+    T
+](
+    part: str,
+    parse: Callable[[str], T],
+    part_a: Callable[[T], int],
+    part_b: Callable[[T], int],
+    test_data_a: str,
+    test_data_b: str,
+) -> None:
+    if part == "a":
+        data = parse(test_data_a)
+        result = part_a(data)
+    elif part == "b":
+        data = parse(test_data_b)
+        result = part_b(data)
+    else:
+        print(f"Invalid part: {part}")
+        return
+
+    # Print the result.
+    print(f"Test Solution: {result}")

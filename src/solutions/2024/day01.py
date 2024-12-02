@@ -1,7 +1,9 @@
+import logging
 from collections import Counter
 
 from utils.decorators import benchmark
-from utils.solver import Problem, solve_problem
+
+logger = logging.getLogger(__name__)
 
 
 @benchmark
@@ -29,17 +31,6 @@ def parse[T](data: str) -> T:
         left.append(a)
         right.append(b)
     return [left, right]
-
-
-def solve(problem: Problem) -> None:
-    solve_problem(
-        problem,
-        parse,
-        part_a,
-        part_b,
-        test_data_a,
-        test_data_b,
-    )
 
 
 test_data_a = """3   4

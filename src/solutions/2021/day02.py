@@ -1,7 +1,9 @@
+import logging
 from dataclasses import dataclass
 
 from utils.decorators import benchmark
-from utils.solver import Problem, solve_problem
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -46,17 +48,6 @@ def parse[T](data: str) -> T:
             lambda x: Command(x.split()[0], int(x.split()[1])),
             data.strip().splitlines(),
         )
-    )
-
-
-def solve(problem: Problem) -> None:
-    solve_problem(
-        problem,
-        parse,
-        part_a,
-        part_b,
-        test_data_a,
-        test_data_b,
     )
 
 
