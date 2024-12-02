@@ -41,12 +41,12 @@ def solve(problem: Problem) -> None:
         parse,
         part_a,
         part_b,
-        part1_testdata,
-        part2_testdata,
+        test_data_a,
+        test_data_b,
     )
 
 
-part1_testdata = """3   4
+test_data_a = """3   4
 4   3
 2   5
 1   3
@@ -54,7 +54,7 @@ part1_testdata = """3   4
 3   3
 """
 
-part2_testdata = """3   4
+test_data_b = """3   4
 4   3
 2   5
 1   3
