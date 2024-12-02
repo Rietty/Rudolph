@@ -1,5 +1,8 @@
+import logging
+
 from utils.decorators import benchmark
-from utils.solver import Problem, solve_problem
+
+log = logging.getLogger(__name__)
 
 
 @benchmark
@@ -14,17 +17,6 @@ def part_b[T](data: T) -> int:
 
 def parse[T](data: str) -> T:
     return data.splitlines()
-
-
-def solve(problem: Problem) -> None:
-    solve_problem(
-        problem,
-        parse,
-        part_a,
-        part_b,
-        test_data_a,
-        test_data_b,
-    )
 
 
 test_data_a = """

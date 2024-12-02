@@ -3,7 +3,7 @@ from typing import List
 
 from utils.decorators import benchmark
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 def is_safe(row: List[int]) -> bool:

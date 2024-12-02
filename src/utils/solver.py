@@ -3,7 +3,7 @@ from typing import Callable
 
 from aocd import get_data, submit
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 def solve_problem[
