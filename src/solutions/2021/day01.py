@@ -9,16 +9,24 @@ ParsedType = TypeVar("ParsedType")
 
 @benchmark
 def part_a(data: ParsedType) -> int:
-    return 0
+    count = 0
+    for i in range(1, len(data)):
+        if data[i] > data[i - 1]:
+            count += 1
+    return count
 
 
 @benchmark
 def part_b(data: ParsedType) -> int:
-    return 0
+    count = 0
+    for i in range(3, len(data)):
+        if sum(data[i - 2 : i + 1]) > sum(data[i - 3 : i]):
+            count += 1
+    return count
 
 
 def parse(data: str) -> ParsedType:
-    return data.splitlines()  # Replace with actual parsing logic.
+    return list(map(int, data.strip().splitlines()))
 
 
 def solve(problem: Problem) -> None:
@@ -32,8 +40,26 @@ def solve(problem: Problem) -> None:
     )
 
 
-test_data_a = """
+test_data_a = """199
+200
+208
+210
+200
+207
+240
+269
+260
+263
 """
 
-test_data_b = """
+test_data_b = """199
+200
+208
+210
+200
+207
+240
+269
+260
+263
 """
