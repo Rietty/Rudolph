@@ -4,7 +4,7 @@ import logging
 
 from utils.solver import solve_problem, test_problem
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     # Create an argument parser.

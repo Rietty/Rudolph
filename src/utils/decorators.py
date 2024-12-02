@@ -2,7 +2,7 @@ import logging
 import time
 from typing import Callable
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 # Decorator to measure the time taken by a function to execute and print the results.

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from utils.decorators import benchmark
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 @dataclass

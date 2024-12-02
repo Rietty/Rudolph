@@ -2,7 +2,7 @@ import logging
 
 from utils.decorators import benchmark
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 
 
 @benchmark
