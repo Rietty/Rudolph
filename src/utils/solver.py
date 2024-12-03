@@ -2,6 +2,7 @@ import logging
 from typing import Callable
 
 from aocd import get_data, submit
+from aocd.models import Puzzle
 
 log = logging.getLogger(__name__)
 
@@ -26,15 +27,27 @@ def solve_problem[
     elif part == "b":
         result = part_b(data)
     else:
-        print(f"Invalid part: {part}")
+        log.info(f"Invalid part: {part}")
         return
 
     # Print the result.
-    print(f"Solution: {result}")
+    log.info(f"Solution: {result}")
 
-    # Submit if desired.
     if publish:
-        submit(result, part=part, year=year, day=day)
+        submit(result, part=part, year=year, day=day, quiet=True)
+        puzzle = Puzzle(year=year, day=day)
+
+        entry = next(
+            (
+                entry
+                for entry in puzzle.submit_results
+                if entry["part"] == part and entry["value"] == str(result)
+            ),
+            None,
+        )
+
+        if entry:
+            log.info(" ".join(entry["message"].split()))
 
 
 def test_problem[
@@ -46,7 +59,16 @@ def test_problem[
     part_b: Callable[[T], int],
     test_data_a: str,
     test_data_b: str,
+    file: str = None,
 ) -> None:
+    # If filepath is provided, read full data from file.
+    if file:
+        with open(file, "r") as f:
+            log.info(f"Reading from {file}...")
+            data = f.read()
+            test_data_a = data
+            test_data_b = data
+
     if part == "a":
         data = parse(test_data_a)
         result = part_a(data)
@@ -54,8 +76,8 @@ def test_problem[
         data = parse(test_data_b)
         result = part_b(data)
     else:
-        print(f"Invalid part: {part}")
+        log.info(f"Invalid part: {part}")
         return
 
     # Print the result.
-    print(f"Test Solution: {result}")
+    log.info(f"Test Solution: {result}")
