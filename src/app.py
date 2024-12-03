@@ -18,6 +18,14 @@ if __name__ == "__main__":
         help="The problem to solve in the format 'year/day/part', e.g., '2024/1/a'.",
     )
 
+    # Add optional argument for input file path override.
+    parser.add_argument(
+        "--file",
+        type=str,
+        default=None,
+        help="Specify a file path to use as input instead of downloading data from Advent of Code.",
+    )
+
     # Add mutually exclusive group for --test and --submit
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -71,6 +79,7 @@ if __name__ == "__main__":
                     parse=module.parse,
                     part_a=module.part_a,
                     part_b=module.part_b,
+                    file_path=args.file,
                 )
         else:
             print(f"The module '{day_formatted}'/'{year}' has no solve() function.")

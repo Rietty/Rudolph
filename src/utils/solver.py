@@ -16,9 +16,15 @@ def solve_problem[
     parse: Callable[[str], T],
     part_a: Callable[[T], int],
     part_b: Callable[[T], int],
+    file_path: str = None,
 ) -> None:
 
-    data = parse(get_data(year=year, day=day, block=True))
+    # Load the data by default if no file path is given.
+    if file_path is None:
+        data = parse(get_data(year=year, day=day, block=True))
+    else:
+        with open(file_path, "r") as file:
+            data = parse(file.read())
 
     # Run the appropriate part of the solution.
     if part == "a":
