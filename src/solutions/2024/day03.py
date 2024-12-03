@@ -8,9 +8,6 @@ log = logging.getLogger(__name__)
 
 @benchmark
 def part_a[T](data: T) -> int:
-    # Parse out only the numbers with format of mul(x,y) where x and y are integers of size 1 to 3 digits.
-    # Multiply x*y and sum all the results.
-    # Return the sum.
     regex = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)")
     return sum([int(x) * int(y) for x, y in regex.findall(data)])
 
