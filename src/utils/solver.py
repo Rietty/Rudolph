@@ -34,7 +34,7 @@ def solve_problem[
 
     # Submit if desired.
     if publish:
-        submit(result, part=part, year=year, day=day, quiet=True)
+        submit(result, part=part, year=year, day=day)
 
 
 def test_problem[
