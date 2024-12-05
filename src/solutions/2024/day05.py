@@ -23,8 +23,8 @@ def part_a[T](data: T) -> int:
 @benchmark
 def part_b[T](data: T) -> int:
     graph, updates = data
-
     fixed_incorrect = []
+
     for update in updates:
         if not path_exists(graph, update):
             subgraph = graph.subgraph(update)
