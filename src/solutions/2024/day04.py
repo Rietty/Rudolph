@@ -10,16 +10,11 @@ log = logging.getLogger(__name__)
 def valid_dirs(
     rows: int, cols: int, r: int, c: int, directions: List[List[List[int]]]
 ) -> List[List[List[int]]]:
-    valid = []
-    for dir in directions:
-        lx, ly = dir[-1]
-        if 0 <= lx + r < rows and 0 <= ly + c < cols:
-            valid.append(dir)
-    return valid
-
-
-def get_opposite_letter(letter: str):
-    return "M" if letter == "S" else "S"
+    return [
+        dir
+        for dir in directions
+        if 0 <= dir[-1][0] + r < rows and 0 <= dir[-1][1] + c < cols
+    ]
 
 
 @benchmark
@@ -41,18 +36,10 @@ def part_a[T](data: T) -> int:
 
     for r in range(n):
         for c in range(m):
-            # We grab possible ways our word can be on this part of the grid.
             possible_directions = valid_dirs(n, m, r, c, directions)
             for dir in possible_directions:
-                coords = []
-                for offset in dir:
-                    coords.append([r + offset[0], c + offset[1]])
-
-                res = ""
-                for cx, cy in coords:
-                    res += data[cx][cy]
-
-                if res == "XMAS":
+                res = [data[r + offset[0]][c + offset[1]] for offset in dir]
+                if "".join(res) == "XMAS":
                     count += 1
 
     return count
@@ -63,6 +50,7 @@ def part_b[T](data: T) -> int:
     n = len(data)
     m = len(data[0])
     count = 0
+    opposites = {"S": "M", "M": "S"}
 
     for r in range(1, n - 1):
         for c in range(1, m - 1):
@@ -74,8 +62,8 @@ def part_b[T](data: T) -> int:
                 if (
                     d1 in "SM"
                     and d2 in "SM"
-                    and d3 == get_opposite_letter(d1)
-                    and d4 == get_opposite_letter(d2)
+                    and d3 == opposites[d1]
+                    and d4 == opposites[d2]
                 ):
                     count += 1
 
