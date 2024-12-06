@@ -22,5 +22,4 @@ def parse[T](data: str) -> T:
 test_data_a = """
 """
 
-test_data_b = """
-"""
+test_data_b = test_data_a

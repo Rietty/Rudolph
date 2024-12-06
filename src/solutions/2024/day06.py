@@ -45,8 +45,7 @@ def calculate_route[T](data: T, ex: int, ey: int) -> Tuple[set, bool]:
     return path, False
 
 
-@benchmark
-def part_a[T](data: T) -> int:
+def calculate_single_route[T](data: T) -> set:
     n = len(data)
     m = len(data[0])
     visited = set()
@@ -72,22 +71,27 @@ def part_a[T](data: T) -> int:
 
         visited.add((x, y))
 
-    return len(visited)
+    return visited
+
+
+@benchmark
+def part_a[T](data: T) -> int:
+    return len(calculate_single_route(data))
 
 
 @benchmark
 def part_b[T](data: T) -> int:
-    n = len(data)
-    m = len(data[0])
+    paths = calculate_single_route(data)
     ans = 0
 
     # For each `.` in the grid, replace it with `#` and calculate route. If the second value is True, then increment the answer.
-    for x in range(n):
-        for y in range(m):
-            if data[x][y] == ".":
-                _, is_loop = calculate_route(data, x, y)
-                if is_loop:
-                    ans += 1
+    for x, y in paths:
+        if data[x][y] == ".":
+            data[x][y] = "#"
+            _, loop = calculate_route(data, x, y)
+            if loop:
+                ans += 1
+            data[x][y] = "."
 
     return ans
 

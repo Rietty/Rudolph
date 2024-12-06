@@ -41,10 +41,4 @@ test_data_a = """3   4
 3   3
 """
 
-test_data_b = """3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-"""
+test_data_b = test_data_a

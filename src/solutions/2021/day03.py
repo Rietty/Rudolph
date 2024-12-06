@@ -41,5 +41,4 @@ test_data_a = """00100
 01010
 """
 
-test_data_b = """
-"""
+test_data_b = test_data_a
