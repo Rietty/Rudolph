@@ -8,21 +8,27 @@ log = logging.getLogger(__name__)
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
 
-def calculate_route[T](data: T, ex: int, ey: int) -> Tuple[set, bool]:
-    path = set()
-    n = len(data)
-    m = len(data[0])
-
+def find_start[T](data: T) -> Tuple[int, int]:
     for x, row in enumerate(data):
         if "^" in row:
-            y = row.index("^")
-            break
+            return x, row.index("^")
+    return -1, -1
+
+
+def traverse_route[
+    T
+](data: T, ex: int = -1, ey: int = -1, detect_loops: bool = False) -> Tuple[set, bool]:
+    path = set()
+    n, m = len(data), len(data[0])
+    x, y = find_start(data)
+    if x == -1 or y == -1:
+        return path, False
 
     dir = 0
+    loop_detected = False
 
     while 0 <= x < n and 0 <= y < m:
         old_dir = dir
-
         dx, dy = DIRECTIONS[dir]
         nx, ny = x + dx, y + dy
 
@@ -37,58 +43,31 @@ def calculate_route[T](data: T, ex: int, ey: int) -> Tuple[set, bool]:
 
         path.add(((x, y), old_dir))
 
+        if detect_loops and ((nx, ny), dir) in path:
+            loop_detected = True
+            break
+
         x, y = nx, ny
 
-        if ((nx, ny), dir) in path:
-            return path, True
-
-    return path, False
-
-
-def calculate_single_route[T](data: T) -> set:
-    n = len(data)
-    m = len(data[0])
-    visited = set()
-
-    for x, row in enumerate(data):
-        if "^" in row:
-            y = row.index("^")
-            break
-
-    dir = 0
-    visited.add((x, y))
-
-    while True:
-        dx, dy = DIRECTIONS[dir]
-        nx, ny = x + dx, y + dy
-
-        if nx < 0 or nx >= n or ny < 0 or ny >= m:
-            break
-        elif data[nx][ny] == "#":
-            dir = (dir + 1) % 4
-        else:
-            x, y = nx, ny
-
-        visited.add((x, y))
-
-    return visited
+    return path, loop_detected
 
 
 @benchmark
 def part_a[T](data: T) -> int:
-    return len(calculate_single_route(data))
+    visited, _ = traverse_route(data)
+    return len({pos for pos, _ in visited})
 
 
 @benchmark
 def part_b[T](data: T) -> int:
-    paths = calculate_single_route(data)
+    visited, _ = traverse_route(data)
+    positions = {pos for pos, _ in visited}
     ans = 0
 
-    # For each `.` in the grid, replace it with `#` and calculate route. If the second value is True, then increment the answer.
-    for x, y in paths:
+    for x, y in positions:
         if data[x][y] == ".":
             data[x][y] = "#"
-            _, loop = calculate_route(data, x, y)
+            _, loop = traverse_route(data, x, y, detect_loops=True)
             if loop:
                 ans += 1
             data[x][y] = "."
@@ -112,14 +91,4 @@ test_data_a = """....#.....
 ......#...
 """
 
-test_data_b = """....#.....
-.........#
-..........
-..#.......
-.......#..
-..........
-.#..^.....
-........#.
-#.........
-......#...
-"""
+test_data_b = test_data_a
