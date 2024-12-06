@@ -5,7 +5,6 @@ from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
-# 4 Directions are: Up, Right, Down, Left
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
 
