@@ -24,6 +24,7 @@ def can_make_target(target: int, nums: List[int], part2: bool = False) -> bool:
 
     if not nums:
         return False
+
     return dfs(1, nums[0])
 
 
