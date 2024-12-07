@@ -7,18 +7,26 @@ log = logging.getLogger(__name__)
 
 
 def concat(a: int, b: int) -> int:
-    return int(str(a) + str(b))
+    multiplier = 1
+    t = b
+    while t > 0:
+        t //= 10
+        multiplier *= 10
+    return a * multiplier + b
 
 
-def can_make_target(target: int, nums: List[int], part2: bool = False) -> bool:
+def can_make_target(target: int, nums: List[int], combine: bool = False) -> bool:
+    # Try all possible combinations of addition, multiplication, and concatenation, recursively
     def dfs(index: int, current: int) -> bool:
         if index == len(nums):
             return current == target
+        if current > target:
+            return False
         if dfs(index + 1, current + nums[index]):
             return True
         if dfs(index + 1, current * nums[index]):
             return True
-        if part2 and dfs(index + 1, concat(current, nums[index])):
+        if combine and dfs(index + 1, concat(current, nums[index])):
             return True
         return False
 
