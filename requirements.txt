@@ -7,3 +7,4 @@ black==24.10.0
 flake8==7.1.1
 click==8.1.7
 cloup==3.0.5
+pyyaml==6.0.2
