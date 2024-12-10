@@ -75,9 +75,9 @@ def main(**kwargs):
             )
 
     except ValueError as e:
-        log.error(f"{e}.")
-    except ModuleNotFoundError:
-        log.error(f"Module '{year}/{day}/{part}' not found.")
+        log.error(f"{e}")
+    except ModuleNotFoundError as e:
+        log.error(f"{e}")
     except Exception as e:
         log.error(f"{e}")
 
@@ -92,6 +92,8 @@ if __name__ == "__main__":
     # Set up logging suppression of external loggers.
     logging.getLogger("aocd").setLevel(logging.ERROR)
     logging.getLogger("urllib3").setLevel(logging.ERROR)
+    logging.getLogger("matplotlib").setLevel(logging.ERROR)
+    logging.getLogger("PIL").setLevel(logging.ERROR)
 
     # Assign configuration to the logger.
     logging.config.dictConfig(log_config)
