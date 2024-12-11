@@ -1,19 +1,17 @@
 import logging
 import math
 from collections import defaultdict
-from functools import lru_cache, reduce
+from functools import reduce
 
 from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
 
-@lru_cache
 def count_digits(n: int) -> int:
     return math.floor(math.log(n, 10) + 1)
 
 
-@lru_cache
 def split_number(n: int, d: int) -> int:
     div = 10 ** (d // 2)
     right = n % div
