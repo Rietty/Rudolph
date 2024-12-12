@@ -5,10 +5,12 @@ from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
-Coordinate = tuple[int, int]
+type Coordinates = tuple[int, int]
 
 
-def generate_antinode_pair(a: Coordinate, b: Coordinate, n: int, m: int) -> Coordinate:
+def generate_antinode_pair(
+    a: Coordinates, b: Coordinates, n: int, m: int
+) -> Coordinates:
     ax, ay = a
     bx, by = b
     nx = bx + (bx - ax)
@@ -19,8 +21,8 @@ def generate_antinode_pair(a: Coordinate, b: Coordinate, n: int, m: int) -> Coor
 
 
 def generate_antinode_line(
-    a: Coordinate, b: Coordinate, n: int, m: int
-) -> list[Coordinate]:
+    a: Coordinates, b: Coordinates, n: int, m: int
+) -> list[Coordinates]:
     res = []
     ax, ay = a
     bx, by = b
