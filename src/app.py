@@ -76,10 +76,13 @@ def main(**kwargs):
 
     except ValueError as e:
         log.error(f"{e}")
+        raise e
     except ModuleNotFoundError as e:
         log.error(f"{e}")
+        raise e
     except Exception as e:
         log.error(f"{e}")
+        raise e
 
 
 if __name__ == "__main__":

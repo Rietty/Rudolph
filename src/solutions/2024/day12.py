@@ -1,0 +1,105 @@
+import logging
+from collections import defaultdict
+
+from utils.decorators import benchmark
+
+log = logging.getLogger(__name__)
+
+
+def get_perimeter(region: list[tuple[int, int]]) -> int:
+    perimeter = 0
+    for x, y in region:
+        perimeter += 4 - sum(
+            (x + dx, y + dy) in region for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1))
+        )
+    return perimeter
+
+
+def get_area(region: list[tuple[int, int]]) -> int:
+    return len(region)
+
+
+def get_corners(region: list[tuple[int, int]]) -> int:
+    corners = 0
+    directions = [(-1, 0, 0, 1), (-1, 0, 0, -1), (1, 0, 0, 1), (1, 0, 0, -1)]
+    diagonal_checks = [
+        (-1, -1, -1, 0, 0, -1),
+        (-1, 1, -1, 0, 0, 1),
+        (1, -1, 1, 0, 0, -1),
+        (1, 1, 1, 0, 0, 1),
+    ]
+
+    for x, y in region:
+        for dx, dy, nx, ny in directions:
+            if (x + dx, y + dy) not in region and (
+                x + nx,
+                y + ny,
+            ) not in region:
+                corners += 1
+
+        for dx, dy, nx1, ny1, nx2, ny2 in diagonal_checks:
+            if (
+                (x + dx, y + dy) not in region
+                and (x + nx1, y + ny1) in region
+                and (x + nx2, y + ny2) in region
+            ):
+                corners += 1
+    return corners
+
+
+def get_regions[T](data: T) -> dict[str, list[list[tuple[int, int]]]]:
+    n = len(data)
+    m = len(data[0])
+    visited = [[False] * m for _ in range(n)]
+
+    def flood_fill(r: int, c: int, char: str) -> list[tuple[int, int]]:
+        stack = [(r, c)]
+        region = []
+        while stack:
+            x, y = stack.pop()
+            if 0 <= x < n and 0 <= y < m and not visited[x][y] and data[x][y] == char:
+                visited[x][y] = True
+                region.append((x, y))
+                stack.extend([(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)])
+        return region
+
+    regions = defaultdict(list)
+
+    for i in range(n):
+        for j in range(m):
+            if not visited[i][j]:
+                char = data[i][j]
+                region = flood_fill(i, j, char)
+                if region:
+                    regions[char].append(region)
+
+    return regions
+
+
+@benchmark
+def part_a[T](data: T) -> int:
+    regions = get_regions(data)
+    return sum(
+        get_perimeter(r) * get_area(r) for rlist in regions.values() for r in rlist
+    )
+
+
+@benchmark
+def part_b[T](data: T) -> int:
+    regions = get_regions(data)
+    return sum(
+        get_corners(r) * get_area(r) for rlist in regions.values() for r in rlist
+    )
+
+
+def parse[T](data: str) -> T:
+    return [list(row) for row in data.splitlines()]
+
+
+test_data_a = """AAAA
+BBCD
+BBCC
+EEEC
+"""
+
+test_data_b = test_data_a
