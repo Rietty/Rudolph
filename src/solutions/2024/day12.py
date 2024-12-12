@@ -5,9 +5,9 @@ from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
-Coordinates = tuple[int, int]
-Region = list[Coordinates]
-Regions = list[Region]
+type Coordinates = tuple[int, int]
+type Region = list[Coordinates]
+type Regions = list[Region]
 
 
 def get_perimeter(region: Region) -> int:
