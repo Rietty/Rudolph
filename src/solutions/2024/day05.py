@@ -1,5 +1,4 @@
 import logging
-from typing import List
 
 import networkx as nx
 
@@ -8,7 +7,7 @@ from utils.decorators import benchmark
 log = logging.getLogger(__name__)
 
 
-def path_exists(graph: nx.DiGraph, path: List[int]) -> bool:
+def path_exists(graph: nx.DiGraph, path: list[int]) -> bool:
     return all(graph.has_edge(path[i], path[i + 1]) for i in range(len(path) - 1))
 
 

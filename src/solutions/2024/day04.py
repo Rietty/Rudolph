@@ -1,5 +1,4 @@
 import logging
-from typing import List
 
 from utils.decorators import benchmark
 
@@ -8,8 +7,8 @@ log = logging.getLogger(__name__)
 
 # Get the valid possible directions a word can appear in.
 def valid_dirs(
-    rows: int, cols: int, r: int, c: int, directions: List[List[List[int]]]
-) -> List[List[List[int]]]:
+    rows: int, cols: int, r: int, c: int, directions: list[list[list[int]]]
+) -> list[list[list[int]]]:
     return [
         dir
         for dir in directions

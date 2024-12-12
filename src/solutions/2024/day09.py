@@ -1,7 +1,6 @@
 import logging
 from collections import deque
 from dataclasses import dataclass
-from typing import List
 
 from utils.decorators import benchmark
 
@@ -18,7 +17,7 @@ class Block:
         return f"{self.id}" if self.type else "."
 
 
-def defragment_disk(blocks: List[Block]) -> None:
+def defragment_disk(blocks: list[Block]) -> None:
     left, right = 0, len(blocks) - 1
 
     while left < right:
@@ -34,7 +33,7 @@ def defragment_disk(blocks: List[Block]) -> None:
             right -= 1
 
 
-def super_defragment_disk(blocks: List[Block]) -> None:
+def super_defragment_disk(blocks: list[Block]) -> None:
     # Keep track of all the file blocks.
     file_blocks = deque()
 
@@ -87,7 +86,7 @@ def super_defragment_disk(blocks: List[Block]) -> None:
         log.debug("Blocks: %s", "".join(map(str, blocks)))
 
 
-def calculate_checksum(blocks: List[Block]) -> int:
+def calculate_checksum(blocks: list[Block]) -> int:
     checksum = 0
     for i, block in enumerate(blocks):
         if block.type:

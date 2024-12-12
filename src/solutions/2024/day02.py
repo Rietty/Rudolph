@@ -1,12 +1,11 @@
 import logging
-from typing import List
 
 from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
 
-def is_safe(row: List[int]) -> bool:
+def is_safe(row: list[int]) -> bool:
     # Check to see if it is strictly decreasing or strictly increasing
     if sorted(row) == row or sorted(row, reverse=True) == row:
         # Check to see the difference between any 2 adjacent numbers is at most 3 and at least 1
