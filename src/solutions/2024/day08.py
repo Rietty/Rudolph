@@ -1,12 +1,11 @@
 import itertools
 import logging
-from typing import List, Tuple
 
 from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
-Coordinate = Tuple[int, int]
+Coordinate = tuple[int, int]
 
 
 def generate_antinode_pair(a: Coordinate, b: Coordinate, n: int, m: int) -> Coordinate:
@@ -21,7 +20,7 @@ def generate_antinode_pair(a: Coordinate, b: Coordinate, n: int, m: int) -> Coor
 
 def generate_antinode_line(
     a: Coordinate, b: Coordinate, n: int, m: int
-) -> List[Coordinate]:
+) -> list[Coordinate]:
     res = []
     ax, ay = a
     bx, by = b

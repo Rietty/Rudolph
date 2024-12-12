@@ -1,5 +1,4 @@
 import logging
-from typing import List
 
 from utils.decorators import benchmark
 
@@ -15,7 +14,7 @@ def concat(a: int, b: int) -> int:
     return a * multiplier + b
 
 
-def can_make_target(target: int, nums: List[int], combine: bool = False) -> bool:
+def can_make_target(target: int, nums: list[int], combine: bool = False) -> bool:
     # Try all possible combinations of addition, multiplication, and concatenation, recursively
     def dfs(index: int, current: int) -> bool:
         if index == len(nums):

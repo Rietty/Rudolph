@@ -1,5 +1,4 @@
 import logging
-from typing import Tuple
 
 from utils.decorators import benchmark
 
@@ -8,7 +7,7 @@ log = logging.getLogger(__name__)
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
 
-def find_start[T](data: T) -> Tuple[int, int]:
+def find_start[T](data: T) -> tuple[int, int]:
     for x, row in enumerate(data):
         if "^" in row:
             return x, row.index("^")
@@ -17,7 +16,7 @@ def find_start[T](data: T) -> Tuple[int, int]:
 
 def traverse_route[
     T
-](data: T, ex: int = -1, ey: int = -1, detect_loops: bool = False) -> Tuple[set, bool]:
+](data: T, ex: int = -1, ey: int = -1, detect_loops: bool = False) -> tuple[set, bool]:
     path = set()
     n, m = len(data), len(data[0])
     x, y = find_start(data)
