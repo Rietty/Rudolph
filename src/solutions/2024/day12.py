@@ -5,8 +5,12 @@ from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
+Coordinate = tuple[int, int]
+Region = list[Coordinate]
+Regions = list[Region]
 
-def get_perimeter(region: list[tuple[int, int]]) -> int:
+
+def get_perimeter(region: Region) -> int:
     perimeter = 0
     for x, y in region:
         perimeter += 4 - sum(
@@ -15,11 +19,11 @@ def get_perimeter(region: list[tuple[int, int]]) -> int:
     return perimeter
 
 
-def get_area(region: list[tuple[int, int]]) -> int:
+def get_area(region: Region) -> int:
     return len(region)
 
 
-def get_corners(region: list[tuple[int, int]]) -> int:
+def get_corners(region: Region) -> int:
     corners = 0
     directions = [(-1, 0, 0, 1), (-1, 0, 0, -1), (1, 0, 0, 1), (1, 0, 0, -1)]
     diagonal_checks = [
@@ -47,12 +51,12 @@ def get_corners(region: list[tuple[int, int]]) -> int:
     return corners
 
 
-def get_regions[T](data: T) -> dict[str, list[list[tuple[int, int]]]]:
+def get_regions[T](data: T) -> dict[str, Regions]:
     n = len(data)
     m = len(data[0])
     visited = [[False] * m for _ in range(n)]
 
-    def flood_fill(r: int, c: int, char: str) -> list[tuple[int, int]]:
+    def flood_fill(r: int, c: int, char: str) -> Region:
         stack = [(r, c)]
         region = []
         while stack:
