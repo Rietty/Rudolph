@@ -5,8 +5,8 @@ from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
 
-Coordinate = tuple[int, int]
-Region = list[Coordinate]
+Coordinates = tuple[int, int]
+Region = list[Coordinates]
 Regions = list[Region]
 
 
