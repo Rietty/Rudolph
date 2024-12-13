@@ -43,6 +43,7 @@ def part_b[T](data: T) -> int:
     return sum([nums[0] for nums in data if can_make_target(nums[0], nums[1:], True)])
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return [list(map(int, line.replace(":", "").split())) for line in data.splitlines()]
 

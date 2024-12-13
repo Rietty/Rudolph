@@ -46,6 +46,7 @@ def part_b[T](data: T) -> int:
     return sum(data.values())
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return {int(item): 1 for item in data.split()}
 

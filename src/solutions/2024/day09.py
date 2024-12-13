@@ -105,6 +105,7 @@ def part_b(data: str) -> int:
     return calculate_checksum(data)
 
 
+@benchmark
 def parse[T](data: str) -> T:
     blocks = []
     is_file = True

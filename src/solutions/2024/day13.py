@@ -41,6 +41,7 @@ def part_b[T](data: T) -> int:
     return total
 
 
+@benchmark
 def parse[T](data: str) -> T:
     machines = []
     for block in data.split("\n\n"):

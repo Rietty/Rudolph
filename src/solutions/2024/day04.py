@@ -67,6 +67,7 @@ def part_b[T](data: T) -> int:
     return count
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return [list(line) for line in data.splitlines()]
 

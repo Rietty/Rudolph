@@ -36,6 +36,7 @@ def part_b[T](data: T) -> int:
     return safe
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return [[int(x) for x in line.split()] for line in data.strip().splitlines()]
 

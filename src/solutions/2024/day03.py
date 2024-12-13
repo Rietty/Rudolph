@@ -35,6 +35,7 @@ def part_b[T](data: T) -> int:
     return total_sum
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return data
 
