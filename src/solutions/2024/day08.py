@@ -1,9 +1,8 @@
 import itertools
-import logging
+
+from loguru import logger as log
 
 from utils.decorators import benchmark
-
-log = logging.getLogger(__name__)
 
 type Coordinates = tuple[int, int]
 

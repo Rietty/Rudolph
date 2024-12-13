@@ -1,8 +1,7 @@
-import logging
 import time
 from typing import Callable
 
-log = logging.getLogger(__name__)
+from loguru import logger as log
 
 
 # Decorator to measure the time taken by a function to execute and log the results.

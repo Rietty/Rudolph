@@ -1,11 +1,12 @@
-import logging
 import re
+import typing
+
+from loguru import logger as log
 
 from utils.decorators import benchmark
 
-log = logging.getLogger(__name__)
-
 type Machine = tuple[int, int, int, int, int, int]
+OFFSET: typing.Final[int] = 10_000_000_000_000
 
 
 def solve(machine: Machine, limit: int) -> int:
@@ -34,8 +35,8 @@ def part_b[T](data: T) -> int:
     total = 0
     for machine in data:
         ax, ay, bx, by, px, py = machine
-        machine = [ax, ay, bx, by, px + 10000000000000, py + 10000000000000]
-        if (ans := solve(machine, 10000000000000)) is not None:
+        machine = [ax, ay, bx, by, px + OFFSET, py + OFFSET]
+        if (ans := solve(machine, OFFSET)) is not None:
             total += ans
     return total
 
