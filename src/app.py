@@ -1,4 +1,5 @@
 import importlib
+import sys
 
 import cloup
 from loguru import logger as log
@@ -81,4 +82,12 @@ def main(**kwargs):
 
 
 if __name__ == "__main__":
+    log.remove()
+    format = (
+        "[<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>] "
+        "[<level>{level: >5}</level>] "
+        "[<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan>] "
+        "<level>{message}</level>"
+    )
+    log.add(sys.stdout, format=format, colorize=True)
     main()
