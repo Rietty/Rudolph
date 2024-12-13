@@ -1,8 +1,6 @@
 import logging
 import re
 
-from z3 import Int, Optimize, Solver
-
 from utils.decorators import benchmark
 
 log = logging.getLogger(__name__)
@@ -10,30 +8,15 @@ log = logging.getLogger(__name__)
 type Machine = tuple[int, int, int, int, int, int]
 
 
-def solve_with_z3(machine):
+def solve(machine: Machine, limit: int) -> int:
     ax, ay, bx, by, px, py = machine
 
-    a = Int("a")
-    b = Int("b")
-    objective = a * 3 + b
+    x = (ax * py - ay * px) / (ax * by - ay * bx)
+    y = (bx * py - by * px) / (bx * ay - by * ax)
 
-    solver = Optimize()
-    solver.add(ax * a + bx * b == px)
-    solver.add(ay * a + by * b == py)
-    solver.add(a >= 0)
-    solver.add(b >= 0)
+    if x.is_integer() and y.is_integer() and 0 <= x <= limit and 0 <= y <= limit:
+        return int(x) + 3 * int(y)
 
-    solver.minimize(objective)
-
-    if solver.check():
-        model = solver.model()
-        a_val, b_val = 0, 0
-        if model[a] is not None:
-            a_val = model[a].as_long()
-        if model[b] is not None:
-            b_val = model[b].as_long()
-
-        return 3 * a_val + b_val
     return None
 
 
@@ -41,7 +24,8 @@ def solve_with_z3(machine):
 def part_a[T](data: T) -> int:
     total = 0
     for machine in data:
-        if (ans := solve_with_z3(machine)) is not None:
+        if (ans := solve(machine)) is not None:
+            log.debug(f"Machine: {machine} -> {ans}")
             total += ans
     return total
 
@@ -52,7 +36,7 @@ def part_b[T](data: T) -> int:
     for machine in data:
         ax, ay, bx, by, px, py = machine
         machine = [ax, ay, bx, by, px + 10000000000000, py + 10000000000000]
-        if (ans := solve_with_z3(machine)) is not None:
+        if (ans := solve(machine, 10000000000000)) is not None:
             total += ans
     return total
 
