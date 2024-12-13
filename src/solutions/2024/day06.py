@@ -72,6 +72,7 @@ def part_b[T](data: T) -> int:
     return ans
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return [list(line) for line in data.splitlines()]
 

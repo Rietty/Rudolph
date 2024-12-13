@@ -21,6 +21,7 @@ def part_b[T](data: T) -> int:
     return 0
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return data.splitlines()
 

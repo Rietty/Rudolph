@@ -33,6 +33,7 @@ def part_b[T](data: T) -> int:
     return len(paths)
 
 
+@benchmark
 def parse[T](data: str) -> T:
     graph = nx.DiGraph()
     grid = [list(map(int, line)) for line in data.splitlines()]

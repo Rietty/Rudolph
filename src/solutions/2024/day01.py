@@ -18,6 +18,7 @@ def part_b[T](data: T) -> int:
     return sum(num * c[num] for num in left)
 
 
+@benchmark
 def parse[T](data: str) -> T:
     # For each line, split it into 2 numbers, put first in list 1, second in list 2.
     # Return a list of the two lists.

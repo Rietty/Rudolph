@@ -70,6 +70,7 @@ def part_b[T](data: T) -> int:
     return len(antinodes)
 
 
+@benchmark
 def parse[T](data: str) -> T:
     data = data.splitlines()
     antennas = {}

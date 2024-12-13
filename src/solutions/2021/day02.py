@@ -41,6 +41,7 @@ def part_b[T](data: T) -> int:
     return horizontal * depth
 
 
+@benchmark
 def parse[T](data: str) -> T:
     return list(
         map(

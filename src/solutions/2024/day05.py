@@ -30,6 +30,7 @@ def part_b[T](data: T) -> int:
     return sum(update[len(update) // 2] for update in fixed_incorrect)
 
 
+@benchmark
 def parse[T](data: str) -> T:
     rules, updates = data.split("\n\n")
 
