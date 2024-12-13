@@ -1,9 +1,8 @@
-import logging
 from dataclasses import dataclass
 
-from utils.decorators import benchmark
+from loguru import logger as log
 
-log = logging.getLogger(__name__)
+from utils.decorators import benchmark
 
 
 @dataclass

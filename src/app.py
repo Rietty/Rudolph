@@ -1,14 +1,9 @@
 import importlib
-import logging
-import logging.config
-import os
 
 import cloup
-import yaml
+from loguru import logger as log
 
 from utils.solver import solve_problem, test_problem
-
-log = logging.getLogger(__name__)
 
 
 @cloup.command()
@@ -86,20 +81,4 @@ def main(**kwargs):
 
 
 if __name__ == "__main__":
-    # Load logging configuration.
-    log_config_path = os.path.join(os.path.dirname(__file__), "config", "logger.yml")
-
-    with open(log_config_path, "r") as f:
-        log_config = yaml.safe_load(f.read())
-
-    # Set up logging suppression of external loggers.
-    logging.getLogger("aocd").setLevel(logging.ERROR)
-    logging.getLogger("urllib3").setLevel(logging.ERROR)
-    logging.getLogger("matplotlib").setLevel(logging.ERROR)
-    logging.getLogger("PIL").setLevel(logging.ERROR)
-
-    # Assign configuration to the logger.
-    logging.config.dictConfig(log_config)
-
-    # Start our application.
     main()

@@ -1,10 +1,8 @@
-import logging
 from typing import Callable
 
 from aocd import get_data, submit
 from aocd.models import Puzzle
-
-log = logging.getLogger(__name__)
+from loguru import logger as log
 
 
 def solve_problem[

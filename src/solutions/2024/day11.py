@@ -1,11 +1,10 @@
-import logging
 import math
 from collections import defaultdict
 from functools import reduce
 
-from utils.decorators import benchmark
+from loguru import logger as log
 
-log = logging.getLogger(__name__)
+from utils.decorators import benchmark
 
 
 def count_digits(n: int) -> int:

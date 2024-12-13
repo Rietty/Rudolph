@@ -1,8 +1,6 @@
-import logging
+from loguru import logger as log
 
 from utils.decorators import benchmark
-
-log = logging.getLogger(__name__)
 
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 

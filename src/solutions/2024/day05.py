@@ -1,10 +1,7 @@
-import logging
-
 import networkx as nx
+from loguru import logger as log
 
 from utils.decorators import benchmark
-
-log = logging.getLogger(__name__)
 
 
 def path_exists(graph: nx.DiGraph, path: list[int]) -> bool:

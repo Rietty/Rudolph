@@ -1,8 +1,6 @@
-import logging
+from loguru import logger as log
 
 from utils.decorators import benchmark
-
-log = logging.getLogger(__name__)
 
 
 # Get the valid possible directions a word can appear in.
