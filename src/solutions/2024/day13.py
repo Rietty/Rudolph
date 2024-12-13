@@ -24,8 +24,7 @@ def solve(machine: Machine, limit: int) -> int:
 def part_a[T](data: T) -> int:
     total = 0
     for machine in data:
-        if (ans := solve(machine)) is not None:
-            log.debug(f"Machine: {machine} -> {ans}")
+        if (ans := solve(machine, 100)) is not None:
             total += ans
     return total
 
