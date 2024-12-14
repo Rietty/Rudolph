@@ -1,6 +1,7 @@
 import typing
 from collections import defaultdict
 from dataclasses import dataclass
+from functools import reduce
 
 from loguru import logger as log
 
@@ -56,7 +57,7 @@ def part_a[T](data: T) -> int:
         quadrant = (x > (WIDTH // 2)) + 2 * (y > (HEIGHT // 2))
         counts[quadrant] += 1
 
-    return counts[0] * counts[1] * counts[2] * counts[3]
+    return reduce(lambda x, y: x * y, counts)
 
 
 @benchmark
