@@ -28,6 +28,19 @@ class Robot:
         self.position = (x, y)
 
 
+def is_tree(robots: Robots) -> bool:
+    robots_map = defaultdict(lambda: 0)
+
+    for robot in robots:
+        x, y = robot.position
+        robots_map[x * WIDTH + y] += 1
+
+    if any(value > 1 for value in robots_map.values()):
+        return False
+
+    return True
+
+
 @benchmark
 def part_a[T](data: T) -> int:
     for _ in range(100):
@@ -44,19 +57,6 @@ def part_a[T](data: T) -> int:
         counts[quadrant] += 1
 
     return counts[0] * counts[1] * counts[2] * counts[3]
-
-
-def is_tree(robots: Robots) -> bool:
-    robots_map = defaultdict(lambda: 0)
-
-    for robot in robots:
-        x, y = robot.position
-        robots_map[x * WIDTH + y] += 1
-
-    if any(value > 1 for value in robots_map.values()):
-        return False
-
-    return True
 
 
 @benchmark
