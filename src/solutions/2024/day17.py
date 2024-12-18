@@ -1,6 +1,7 @@
-from loguru import logger as log
-from enum import Enum
 import math
+from enum import Enum
+
+from loguru import logger as log
 
 from utils.decorators import benchmark
 
@@ -25,7 +26,7 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
     while not halt:
         try:
             ins, op = program[ip], program[ip + 1]
-        except:
+        except KeyError:
             halt = True
             continue
 
@@ -79,17 +80,28 @@ def part_a[T](data: T) -> str:
 
 @benchmark
 def part_b[T](data: T) -> int:
-    return 0
+    _, program = data
+    current = 0
+
+    for digit in range(len(program) - 1, -1, -1):
+        for i in range(0, int(1e10)):
+            candidate = current + (1 << (digit * 3)) * i
+            output = compute([candidate, 0, 0], program)
+            if output[digit:] == program[digit:]:
+                current = candidate
+                break
+
+    return current
 
 
 @benchmark
 def parse[T](data: str) -> T:
     registers, program = data.split("\n\n")
     registers = [
-        int(l)
+        int(num)
         for line in registers.splitlines()
-        for l in line.split(":")
-        if l[1].isdigit()
+        for num in line.split(":")
+        if num[1].isdigit()
     ]
     program = list(map(int, program.split(":")[1].split(",")))
     return registers, program
