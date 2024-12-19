@@ -26,7 +26,7 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
     while not halt:
         try:
             ins, op = program[ip], program[ip + 1]
-        except KeyError:
+        except Exception:
             halt = True
             continue
 
@@ -39,7 +39,7 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
         elif op == 6:
             combo = c
         elif op >= 7:
-            raise ValueError(f"Operand value was {op} - Which is invalid!")
+            raise ValueError("Invalid!")
 
         match ins:
             case Instruction.ADV.value:
