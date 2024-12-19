@@ -1,6 +1,7 @@
+import typing
+
 import networkx as netx
 from loguru import logger as log
-import typing
 
 from utils.decorators import benchmark
 
@@ -29,7 +30,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> tuple[int, int]:
+def part_b[T](data: T) -> str:
     byte = 0
     graph = netx.Graph()
 
@@ -45,8 +46,8 @@ def part_b[T](data: T) -> tuple[int, int]:
         graph.remove_node(data[byte])
         try:
             netx.shortest_path_length(graph, (0, 0), (MX, MY))
-        except:
-            return data[byte]
+        except Exception:
+            return ",".join(map(str, data[byte]))
         finally:
             byte += 1
 
