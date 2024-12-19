@@ -22,6 +22,7 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
     halt = False
     ip = 0
     res = []
+    jump = False
 
     while not halt:
         try:
@@ -44,30 +45,27 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
         match ins:
             case Instruction.ADV.value:
                 a = math.trunc((a / (2**combo)))
-                ip += 2
             case Instruction.BXL.value:
                 b = b ^ op
-                ip += 2
             case Instruction.BST.value:
                 b = combo % 8
-                ip += 2
             case Instruction.JNZ.value:
                 if a != 0:
                     ip = op
-                else:
-                    ip += 2
+                    jump = True
             case Instruction.BXC.value:
                 b = b ^ c
-                ip += 2
             case Instruction.OUT.value:
                 res.append(combo % 8)
-                ip += 2
             case Instruction.BDV.value:
                 b = math.trunc((a / (2**combo)))
-                ip += 2
             case Instruction.CDV.value:
                 c = math.trunc((a / (2**combo)))
-                ip += 2
+
+        if not jump:
+            ip += 2
+
+        jump = False
 
     return res
 
