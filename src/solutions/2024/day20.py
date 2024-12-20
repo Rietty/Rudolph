@@ -51,7 +51,6 @@ def count_good_cheats(
     max_cheat_distance: int,
 ) -> int:
     source_path_lengths = nx.single_source_shortest_path_length(graph, start)
-    target_path_lengths = nx.single_source_shortest_path_length(graph, end)
 
     # Get the path length from the source to the end.
     original_length = source_path_lengths[end]
@@ -70,7 +69,7 @@ def count_good_cheats(
             if cheat_node in graph.nodes:
                 new_length = (
                     source_path_lengths[node]
-                    + target_path_lengths[cheat_node]
+                    + (original_length - source_path_lengths[cheat_node])
                     + cheat_distance
                 )
 
@@ -82,19 +81,19 @@ def count_good_cheats(
 
 @benchmark
 def part_a[T](data: T) -> int:
-    graph, start, end = get_graph(data)
+    graph, start, end = data
     return count_good_cheats(graph, start, end, 2)
 
 
 @benchmark
 def part_b[T](data: T) -> int:
-    graph, start, end = get_graph(data)
+    graph, start, end = data
     return count_good_cheats(graph, start, end, 20)
 
 
 @benchmark
 def parse[T](data: str) -> T:
-    return [list(line) for line in data.splitlines()]
+    return get_graph([list(line) for line in data.splitlines()])
 
 
 test_data_a = """###############
