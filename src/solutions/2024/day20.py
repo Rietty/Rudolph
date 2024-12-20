@@ -60,7 +60,7 @@ def count_good_cheats(
     # 1. Get all possible nodes that are within the cheat distance and in the graph.
     # 2. Look up the shortest path from the source to the node and from the node to the target.
     # 3. Add them together, plus the manhattan distance from the node to the target.
-    # 4. If this is less than the original path length, we have a shorter path.
+    # 4. If the difference between the original path and the new path is greater than 100, we count it as a good cheat.
     good_cheats = 0
 
     for cheat_x, cheat_y, cheat_distance in get_possible_cheats(max_cheat_distance):
