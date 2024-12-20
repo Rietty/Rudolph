@@ -65,7 +65,8 @@ def count_good_cheats(
 
     for cheat_x, cheat_y, cheat_distance in get_possible_cheats(max_cheat_distance):
         for node in graph.nodes:
-            cheat_node = (node[0] + cheat_x, node[1] + cheat_y)
+            x, y = node
+            cheat_node = (x + cheat_x, y + cheat_y)
             if cheat_node in graph.nodes:
                 new_length = (
                     source_path_lengths[node]
