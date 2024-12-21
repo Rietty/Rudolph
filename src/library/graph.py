@@ -45,7 +45,7 @@ class Graph:
                 if grid[r][c] in blocked:
                     continue
                 for dr, dc in grid.get_neighbours(r, c):
-                    if grid[dr][dc] in allowed:
+                    if allowed is None or grid[dr][dc] in allowed:
                         if function:
                             if function(grid[r][c], grid[dr][dc]):
                                 self.add_edge((r, c), (dr, dc))
