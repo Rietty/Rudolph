@@ -1,10 +1,11 @@
 import networkx as nx
 from loguru import logger as log
 
+from library.graph import Graph
 from utils.decorators import benchmark
 
 
-def path_exists(graph: nx.DiGraph, path: list[int]) -> bool:
+def path_exists(graph: Graph, path: list[int]) -> bool:
     return all(graph.has_edge(path[i], path[i + 1]) for i in range(len(path) - 1))
 
 
@@ -24,7 +25,7 @@ def part_b[T](data: T) -> int:
 
     for update in updates:
         if not path_exists(graph, update):
-            subgraph = graph.subgraph(update)
+            subgraph = graph.get().subgraph(update)
             fixed_incorrect.append(list(nx.topological_sort(subgraph)))
 
     return sum(update[len(update) // 2] for update in fixed_incorrect)
@@ -37,7 +38,7 @@ def parse[T](data: str) -> T:
     rules = [tuple(map(int, rule.split("|"))) for rule in rules.splitlines()]
     updates = [list(map(int, update.split(","))) for update in updates.splitlines()]
 
-    graph = nx.DiGraph()
+    graph = Graph(directed=True)
     graph.add_edges_from(rules)
 
     return (graph, updates)
