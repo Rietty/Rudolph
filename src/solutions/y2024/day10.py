@@ -7,7 +7,7 @@ DIRECTIONS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: nx.DiGraph) -> int:
     start_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 0]
     end_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 9]
 
@@ -21,7 +21,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: nx.DiGraph) -> int:
     start_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 0]
     end_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 9]
 
@@ -34,7 +34,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> nx.DiGraph:
     graph = nx.DiGraph()
     grid = [list(map(int, line)) for line in data.splitlines()]
 

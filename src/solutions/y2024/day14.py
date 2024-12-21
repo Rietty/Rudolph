@@ -30,7 +30,7 @@ class Robot:
 
 
 def is_tree(robots: Robots) -> bool:
-    robots_map = defaultdict(lambda: 0)
+    robots_map: defaultdict[int, int] = defaultdict(lambda: 0)
 
     for robot in robots:
         x, y = robot.position
@@ -43,7 +43,7 @@ def is_tree(robots: Robots) -> bool:
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: Robots) -> int:
     for _ in range(100):
         for robot in data:
             robot.tick()
@@ -61,7 +61,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: Robots) -> int:
     seconds = 0
     while not is_tree(data):
         for robot in data:
@@ -71,13 +71,13 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> Robots:
     robots = []
     for line in data.splitlines():
         parts = line.split()
-        position = tuple(map(int, parts[0][2:].split(",")))
-        velocity = tuple(map(int, parts[1][2:].split(",")))
-        robots.append(Robot(position, velocity))
+        x1, y1 = map(int, parts[0][2:].split(","))
+        x2, y2 = map(int, parts[1][2:].split(","))
+        robots.append(Robot((x1, y1), (x2, y2)))
     return robots
 
 

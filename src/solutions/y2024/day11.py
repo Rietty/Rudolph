@@ -11,15 +11,15 @@ def count_digits(n: int) -> int:
     return math.floor(math.log(n, 10) + 1)
 
 
-def split_number(n: int, d: int) -> int:
+def split_number(n: int, d: int) -> tuple[int, int]:
     div = 10 ** (d // 2)
     right = n % div
     left = n // div
     return left, right
 
 
-def apply_rules[T](data: T) -> T:
-    new_stones = defaultdict(lambda: 0)
+def apply_rules[T](data: dict) -> defaultdict[int, int]:
+    new_stones: defaultdict[int, int] = defaultdict(lambda: 0)
 
     for s, f in data.items():
         if s == 0:
@@ -35,19 +35,19 @@ def apply_rules[T](data: T) -> T:
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: dict) -> int:
     data = reduce(lambda data, _: apply_rules(data), range(25), data)
     return sum(data.values())
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: dict) -> int:
     data = reduce(lambda data, _: apply_rules(data), range(75), data)
     return sum(data.values())
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> dict:
     return {int(item): 1 for item in data.split()}
 
 

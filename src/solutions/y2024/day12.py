@@ -50,7 +50,7 @@ def get_corners(region: Region) -> int:
     return corners
 
 
-def get_regions[T](data: T) -> dict[str, Regions]:
+def get_regions(data: list[list[str]]) -> dict[str, Regions]:
     n = len(data)
     m = len(data[0])
     visited = [[False] * m for _ in range(n)]
@@ -80,7 +80,7 @@ def get_regions[T](data: T) -> dict[str, Regions]:
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[list[str]]) -> int:
     regions = get_regions(data)
     return sum(
         get_perimeter(r) * get_area(r) for rlist in regions.values() for r in rlist
@@ -88,7 +88,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[list[str]]) -> int:
     regions = get_regions(data)
     return sum(
         get_corners(r) * get_area(r) for rlist in regions.values() for r in rlist
@@ -96,7 +96,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[list[str]]:
     return [list(row) for row in data.splitlines()]
 
 

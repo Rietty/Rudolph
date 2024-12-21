@@ -3,6 +3,7 @@ from typing import Callable
 from aocd import get_data, submit
 from aocd.models import Puzzle
 from loguru import logger as log
+from typing_extensions import Literal
 
 
 def solve_problem[
@@ -10,7 +11,7 @@ def solve_problem[
 ](
     year: int,
     day: int,
-    part: str,
+    part: Literal["a", "b"] | None,
     publish: bool,
     parse: Callable[[str], T],
     part_a: Callable[[T], int],
@@ -32,7 +33,7 @@ def solve_problem[
     log.info(f"Solution: {result}")
 
     if publish:
-        submit(result, part=part, year=year, day=day, quiet=True)
+        submit(str(result), part=part, year=year, day=day, quiet=True)
         puzzle = Puzzle(year=year, day=day)
 
         entry = next(
@@ -57,22 +58,22 @@ def test_problem[
     part_b: Callable[[T], int],
     test_data_a: str,
     test_data_b: str,
-    file: str = None,
+    file: str | None = None,
 ) -> None:
     # If filepath is provided, read full data from file.
     if file:
         with open(file, "r") as f:
             log.info(f"Reading from {file}...")
-            data = f.read()
+            data: str = f.read()
             test_data_a = data
             test_data_b = data
 
     if part == "a":
-        data = parse(test_data_a)
-        result = part_a(data)
+        parsed_data = parse(test_data_a)
+        result = part_a(parsed_data)
     elif part == "b":
-        data = parse(test_data_b)
-        result = part_b(data)
+        parsed_data = parse(test_data_b)
+        result = part_b(parsed_data)
     else:
         log.info(f"Invalid part: {part}")
         return

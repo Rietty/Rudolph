@@ -18,6 +18,8 @@ def generate_antinode_pair(
     if 0 <= nx < n and 0 <= ny < m:
         return nx, ny
 
+    return -1, -1
+
 
 def generate_antinode_line(
     a: Coordinates, b: Coordinates, n: int, m: int
@@ -41,7 +43,7 @@ def generate_antinode_line(
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: tuple[dict[str, list[Coordinates]], int, int]) -> int:
     antennas, n, m = data
     antinodes = set()
 
@@ -56,7 +58,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: tuple[dict[str, list[Coordinates]], int, int]) -> int:
     antennas, n, m = data
     antinodes = set()
 
@@ -71,10 +73,9 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
-    data = data.splitlines()
-    antennas = {}
-    for y, line in enumerate(data):
+def parse(data: str) -> tuple[dict[str, list[Coordinates]], int, int]:
+    antennas: dict[str, list[Coordinates]] = {}
+    for y, line in enumerate(data.splitlines()):
         for x, char in enumerate(line):
             if char != ".":
                 antennas.setdefault(char, []).append((x, y))

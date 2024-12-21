@@ -47,19 +47,19 @@ def count_good_cheats(
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: tuple[Graph, tuple[int, int], tuple[int, int]]) -> int:
     graph, start, end = data
     return count_good_cheats(graph, start, end, 2)
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: tuple[Graph, tuple[int, int], tuple[int, int]]) -> int:
     graph, start, end = data
     return count_good_cheats(graph, start, end, 20)
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> tuple[Graph, tuple[int, int], tuple[int, int]]:
     grid = Grid([list(line) for line in data.splitlines()])
     graph = Graph()
     graph.populate_from_grid(

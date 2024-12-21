@@ -4,17 +4,17 @@ from utils.decorators import benchmark
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[str]) -> int:
     return 0
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[str]) -> int:
     return 0
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[str]:
     return data.splitlines()
 
 

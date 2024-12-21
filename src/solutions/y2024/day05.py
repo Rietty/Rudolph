@@ -10,7 +10,7 @@ def path_exists(graph: Graph, path: list[int]) -> bool:
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: tuple[Graph, list[list[int]]]) -> int:
     graph, updates = data
 
     return sum(
@@ -19,7 +19,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: tuple[Graph, list[list[int]]]) -> int:
     graph, updates = data
     fixed_incorrect = []
 
@@ -32,11 +32,15 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
-    rules, updates = data.split("\n\n")
+def parse(data: str) -> tuple[Graph, list[list[int]]]:
+    r, u = data.split("\n\n")
 
-    rules = [tuple(map(int, rule.split("|"))) for rule in rules.splitlines()]
-    updates = [list(map(int, update.split(","))) for update in updates.splitlines()]
+    rules: list[tuple[int, ...]] = [
+        tuple(map(int, rule.split("|"))) for rule in r.splitlines()
+    ]
+    updates: list[list[int]] = [
+        list(map(int, update.split(","))) for update in u.splitlines()
+    ]
 
     graph = Graph(directed=True)
     graph.add_edges_from(rules)

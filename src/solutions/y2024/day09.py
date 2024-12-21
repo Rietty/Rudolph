@@ -34,7 +34,7 @@ def defragment_disk(blocks: list[Block]) -> None:
 
 def super_defragment_disk(blocks: list[Block]) -> None:
     # Keep track of all the file blocks.
-    file_blocks = deque()
+    file_blocks: deque[tuple[int, int, int]] = deque()
 
     # Go through the blocks using pointers to keep track of the size of the same type of blocks and their starting index to add to the deques.
     left, right = 0, 0
@@ -94,19 +94,19 @@ def calculate_checksum(blocks: list[Block]) -> int:
 
 
 @benchmark
-def part_a(data: str) -> int:
+def part_a(data: list[Block]) -> int:
     defragment_disk(data)  # No return as we simply modify the list in place.
     return calculate_checksum(data)
 
 
 @benchmark
-def part_b(data: str) -> int:
+def part_b(data: list[Block]) -> int:
     super_defragment_disk(data)  # No return as we simply modify the list in place.
     return calculate_checksum(data)
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[Block]:
     blocks = []
     is_file = True
     block_id = 0

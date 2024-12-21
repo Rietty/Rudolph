@@ -6,13 +6,13 @@ from utils.decorators import benchmark
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: str) -> int:
     regex = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)")
     return sum([int(x) * int(y) for x, y in regex.findall(data)])
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: str) -> int:
     mul = re.compile(r"mul\((\d+),(\d+)\)")
     control = re.compile(r"do\(\)|don't\(\)")
 
@@ -36,7 +36,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> str:
     return data
 
 

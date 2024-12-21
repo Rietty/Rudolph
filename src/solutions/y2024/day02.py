@@ -15,12 +15,12 @@ def is_safe(row: list[int]) -> bool:
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[list[int]]) -> int:
     return sum(is_safe(row) for row in data)
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[list[int]]) -> int:
     # For each row of data, check if it is safe or not.
     # If it is not safe, then check if removing any 1 element makes it safe.
     safe = 0
@@ -37,7 +37,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[list[int]]:
     return [[int(x) for x in line.split()] for line in data.strip().splitlines()]
 
 
