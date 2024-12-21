@@ -112,19 +112,24 @@ class Grid[T]:
             for ray in self.get_neighbour_rays(r, c, scaling, diagonals)
         ]
 
-    def find_value(self, value: T) -> tuple[int, int]:
+    def find_value(self, value: T, skip: int = 0) -> tuple[int, int]:
         """Find the first occurrence of a value in the grid.
 
         Args:
             value (T): Value to find in the grid.
+            skip (int): Number of occurrences to skip.
 
         Returns:
             tuple[int, int]: Row and column of the value in the grid.
         """
-        for r in range(self.width):
-            for c in range(self.height):
-                if self.grid[r][c] == value:
-                    return r, c
+        for i, row in enumerate(self.grid):
+            for j, cell in enumerate(row):
+                if cell == value:
+                    if skip == 0:
+                        return i, j
+                    skip -= 1
+
+        return -1, -1  # Not found
 
     def width(self) -> int:
         """Width of the grid.
