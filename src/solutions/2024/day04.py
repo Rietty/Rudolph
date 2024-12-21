@@ -1,56 +1,31 @@
 from loguru import logger as log
 
+from library.grid import Grid
 from utils.decorators import benchmark
 
 
-# Get the valid possible directions a word can appear in.
-def valid_dirs(
-    rows: int, cols: int, r: int, c: int, directions: list[list[list[int]]]
-) -> list[list[list[int]]]:
-    return [
-        dir
-        for dir in directions
-        if 0 <= dir[-1][0] + r < rows and 0 <= dir[-1][1] + c < cols
-    ]
-
-
 @benchmark
-def part_a[T](data: T) -> int:
-    n = len(data)
-    m = len(data[0])
+def part_a[T](data: Grid) -> int:
     count = 0
 
-    directions = [
-        [[0, 0], [-1, 0], [-2, 0], [-3, 0]],
-        [[0, 0], [-1, 1], [-2, 2], [-3, 3]],
-        [[0, 0], [0, 1], [0, 2], [0, 3]],
-        [[0, 0], [1, 1], [2, 2], [3, 3]],
-        [[0, 0], [1, 0], [2, 0], [3, 0]],
-        [[0, 0], [1, -1], [2, -2], [3, -3]],
-        [[0, 0], [0, -1], [0, -2], [0, -3]],
-        [[0, 0], [-1, -1], [-2, -2], [-3, -3]],
-    ]
-
-    for r in range(n):
-        for c in range(m):
-            possible_directions = valid_dirs(n, m, r, c, directions)
-            for dir in possible_directions:
-                res = [data[r + offset[0]][c + offset[1]] for offset in dir]
-                if "".join(res) == "XMAS":
+    for r in range(data.width):
+        for c in range(data.height):
+            neighbors = data.get_neighbour_ray_values(r, c, 3, True)
+            for n in neighbors:
+                n.insert(0, data[r][c])
+                if "".join(n) == "XMAS":
                     count += 1
 
     return count
 
 
 @benchmark
-def part_b[T](data: T) -> int:
-    n = len(data)
-    m = len(data[0])
+def part_b[T](data: Grid) -> int:
     count = 0
     opposites = {"S": "M", "M": "S"}
 
-    for r in range(1, n - 1):
-        for c in range(1, m - 1):
+    for r in range(1, data.width - 1):
+        for c in range(1, data.height - 1):
             if data[r][c] == "A":
                 d1 = data[r + 1][c + 1]
                 d2 = data[r + 1][c - 1]
@@ -69,7 +44,7 @@ def part_b[T](data: T) -> int:
 
 @benchmark
 def parse[T](data: str) -> T:
-    return [list(line) for line in data.splitlines()]
+    return Grid([list(line) for line in data.splitlines()])
 
 
 test_data_a = """MMMSXXMASM
