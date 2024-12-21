@@ -8,7 +8,7 @@ $DayPadded = "{0:D2}" -f $Day
 
 # Define paths
 $SourceFile = "src/solutions/template.py"
-$DestinationDir = "src/solutions/$Year"
+$DestinationDir = "src/solutions/y$Year"
 $DestinationFile = "$DestinationDir/day$DayPadded.py"
 
 # Check if the source file exists

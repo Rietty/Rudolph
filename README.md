@@ -4,6 +4,9 @@ Advent of Code in Python (🐍)!
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
+  Advent of Code - 44/492 ⭐
+</h1>
+<h1 align="center">
   2024 - 37 ⭐ - Python
 </h1>
 <a href="src/solutions/y2024/day01.py">
@@ -77,5 +80,11 @@ Advent of Code in Python (🐍)!
 </a>
 <a href="src/solutions/y2021/day03.py">
   <img src=".aoc_tiles/tiles/2021/03.png" width="161px">
+</a>
+<h1 align="center">
+  2015 - 2 ⭐ - Python
+</h1>
+<a href="src/solutions/y2015/day01.py">
+  <img src=".aoc_tiles/tiles/2015/01.png" width="161px">
 </a>
 <!-- AOC TILES END -->
