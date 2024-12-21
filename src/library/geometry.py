@@ -1,6 +1,8 @@
 # Common geometry functions and calculations for various problems.
 from dataclasses import dataclass
 
+from loguru import logger as log
+
 
 @dataclass
 class Point:
