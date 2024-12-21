@@ -1,4 +1,6 @@
 # Grid implementation that can be useful for various problems.
+from loguru import logger as log
+
 from library.constants import Cardinals, Ordinals
 
 
@@ -109,6 +111,36 @@ class Grid[T]:
             [self.grid[nr][nc] for nr, nc in ray]
             for ray in self.get_neighbour_rays(r, c, scaling, diagonals)
         ]
+
+    def find_value(self, value: T) -> tuple[int, int]:
+        """Find the first occurrence of a value in the grid.
+
+        Args:
+            value (T): Value to find in the grid.
+
+        Returns:
+            tuple[int, int]: Row and column of the value in the grid.
+        """
+        for r in range(self.width):
+            for c in range(self.height):
+                if self.grid[r][c] == value:
+                    return r, c
+
+    def width(self) -> int:
+        """Width of the grid.
+
+        Returns:
+            int: Width of the grid.
+        """
+        return len(self.grid)
+
+    def height(self) -> int:
+        """Height of the grid.
+
+        Returns:
+            int: Height of the grid.
+        """
+        return len(self.grid[0])
 
     def __getitem__(self, row: int) -> list[T]:
         """Get the value at a given row in the grid.
