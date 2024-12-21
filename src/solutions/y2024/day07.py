@@ -34,17 +34,17 @@ def can_make_target(target: int, nums: list[int], combine: bool = False) -> bool
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[list[int]]) -> int:
     return sum([nums[0] for nums in data if can_make_target(nums[0], nums[1:])])
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[list[int]]) -> int:
     return sum([nums[0] for nums in data if can_make_target(nums[0], nums[1:], True)])
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[list[int]]:
     return [list(map(int, line.replace(":", "").split())) for line in data.splitlines()]
 
 

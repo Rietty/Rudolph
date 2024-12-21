@@ -42,7 +42,7 @@ def main(**kwargs):
             raise ValueError("Part must be 'a' or 'b'.")
 
         day_formatted = f"day{day:02d}"  # Format day as day01, day02, etc.
-        module_name = f"solutions.{year}.{day_formatted}"
+        module_name = f"solutions.y{year}.{day_formatted}"
 
         # Check if the module exists
         module = importlib.import_module(module_name)

@@ -5,10 +5,10 @@ from library.grid import Grid
 from utils.decorators import benchmark
 
 
-def traverse_route[
-    T
-](data: T, er: int = -1, ec: int = -1, detect_loops: bool = False) -> tuple[set, bool]:
-    path = set()
+def traverse_route(
+    data: Grid, er: int = -1, ec: int = -1, detect_loops: bool = False
+) -> tuple[set, bool]:
+    path: set[tuple[tuple[int, int], int]] = set()
     n, m = data.width, data.height
     r, c = data.find_value("^")
 
@@ -44,13 +44,13 @@ def traverse_route[
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: Grid) -> int:
     visited, _ = traverse_route(data)
     return len({pos for pos, _ in visited})
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: Grid) -> int:
     visited, _ = traverse_route(data)
     positions = {pos for pos, _ in visited}
     ans = 0
@@ -67,7 +67,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> Grid:
     return Grid([list(line) for line in data.splitlines()])
 
 

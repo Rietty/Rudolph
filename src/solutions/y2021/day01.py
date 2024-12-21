@@ -4,7 +4,7 @@ from utils.decorators import benchmark
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[int]) -> int:
     count = 0
     for i in range(1, len(data)):
         if data[i] > data[i - 1]:
@@ -13,7 +13,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[int]) -> int:
     count = 0
     for i in range(3, len(data)):
         if sum(data[i - 2 : i + 1]) > sum(data[i - 3 : i]):
@@ -22,7 +22,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[int]:
     return list(map(int, data.strip().splitlines()))
 
 

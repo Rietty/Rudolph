@@ -5,7 +5,7 @@ from loguru import logger as log
 
 
 # Decorator to measure the time taken by a function to execute and log the results.
-def benchmark(func: Callable[..., int]) -> Callable[..., int]:
+def benchmark(func: Callable) -> Callable[..., int]:
     # Used to measure the time taken to execute via the perf_counter.
     # Returns result and logs the time taken to execute the function.
     def wrapper(*args, **kwargs):

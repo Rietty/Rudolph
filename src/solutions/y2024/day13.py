@@ -18,11 +18,11 @@ def solve(machine: Machine, limit: int) -> int:
     if x.is_integer() and y.is_integer() and 0 <= x <= limit and 0 <= y <= limit:
         return int(x) + 3 * int(y)
 
-    return None
+    return 0
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[Machine]) -> int:
     total = 0
     for machine in data:
         if (ans := solve(machine, 100)) is not None:
@@ -31,27 +31,28 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[Machine]) -> int:
     total = 0
     for machine in data:
         ax, ay, bx, by, px, py = machine
-        machine = [ax, ay, bx, by, px + OFFSET, py + OFFSET]
-        if (ans := solve(machine, OFFSET)) is not None:
+        new_machine: Machine = (ax, ay, bx, by, px + OFFSET, py + OFFSET)
+        if (ans := solve(new_machine, OFFSET)) is not None:
             total += ans
     return total
 
 
 @benchmark
-def parse[T](data: str) -> T:
-    machines = []
+def parse(data: str) -> list[Machine]:
+    machines: list[Machine] = []
     for block in data.split("\n\n"):
         lines = block.split("\n")
-        values = []
+        values: list[int] = []
         for line in lines:
             match = re.search(r"X[+=](\d+), Y[+=](\d+)", line)
             if match:
                 values.extend([int(match.group(1)), int(match.group(2))])
-        machines.append(values)
+        ax, ay, bx, by, px, py = values
+        machines.append((ax, ay, bx, by, px, py))
     return machines
 
 

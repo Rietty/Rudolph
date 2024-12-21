@@ -71,13 +71,13 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
 
 
 @benchmark
-def part_a[T](data: T) -> str:
+def part_a(data: tuple[list[int], list[int]]) -> str:
     registers, program = data
     return ",".join(map(str, compute(registers, program)))
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: tuple[list[int], list[int]]) -> int:
     _, program = data
     current = 0
 
@@ -93,15 +93,15 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
-    registers, program = data.split("\n\n")
+def parse(data: str) -> tuple[list[int], list[int]]:
+    registers_str, program_str = data.split("\n\n")
     registers = [
         int(num)
-        for line in registers.splitlines()
+        for line in registers_str.splitlines()
         for num in line.split(":")
-        if num[1].isdigit()
+        if num.strip().isdigit()
     ]
-    program = list(map(int, program.split(":")[1].split(",")))
+    program = list(map(int, program_str.split(":")[1].split(",")))
     return registers, program
 
 

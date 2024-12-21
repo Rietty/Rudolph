@@ -13,7 +13,7 @@ MY: typing.Final[int] = 70
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[tuple[int, int]]) -> int:
     graph = netx.Graph()
 
     for x in range(MX + 1):
@@ -30,7 +30,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> str:
+def part_b(data: list[tuple[int, int]]) -> str:
     byte = 0
     graph = netx.Graph()
 
@@ -53,8 +53,10 @@ def part_b[T](data: T) -> str:
 
 
 @benchmark
-def parse[T](data: str) -> T:
-    return [tuple(map(int, line.split(","))) for line in data.splitlines()]
+def parse(data: str) -> list[tuple[int, int]]:
+    return [
+        (int(x), int(y)) for x, y in (line.split(",") for line in data.splitlines())
+    ]
 
 
 test_data_a = """5,4

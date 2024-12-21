@@ -12,7 +12,7 @@ class Command:
 
 
 @benchmark
-def part_a[T](data: T) -> int:
+def part_a(data: list[Command]) -> int:
     horizontal = 0
     depth = 0
     for command in data:
@@ -26,7 +26,7 @@ def part_a[T](data: T) -> int:
 
 
 @benchmark
-def part_b[T](data: T) -> int:
+def part_b(data: list[Command]) -> int:
     horizontal = 0
     depth = 0
     aim = 0
@@ -42,7 +42,7 @@ def part_b[T](data: T) -> int:
 
 
 @benchmark
-def parse[T](data: str) -> T:
+def parse(data: str) -> list[Command]:
     return list(
         map(
             lambda x: Command(x.split()[0], int(x.split()[1])),

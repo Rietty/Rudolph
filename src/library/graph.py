@@ -1,4 +1,6 @@
 # Graph helper library for common graph operations used in problems.
+from typing import Callable
+
 import networkx as nx
 from loguru import logger as log
 
@@ -36,13 +38,13 @@ class Graph:
     ](
         self,
         grid: Grid,
-        allowed: list[T] = None,
-        blocked: list[T] = None,
-        function: callable = None,
+        allowed: list[T] | None = None,
+        blocked: list[T] | None = None,
+        function: Callable | None = None,
     ) -> None:
         for r in range(grid.width):
             for c in range(grid.height):
-                if grid[r][c] in blocked:
+                if blocked and grid[r][c] in blocked:
                     continue
                 for dr, dc in grid.get_neighbours(r, c):
                     if allowed is None or grid[dr][dc] in allowed:

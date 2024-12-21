@@ -60,7 +60,7 @@ class Grid[T]:
 
     def get_neighbour_rays(
         self, r: int, c: int, scaling: int, diagonals: bool = False
-    ) -> list[list[T]]:
+    ) -> list[list[tuple[int, int]]]:
         """Get the values of the neighbours of a cell at a given row, col in the grid.  Always from clockwise starting from the top.
 
         Args:
@@ -95,7 +95,7 @@ class Grid[T]:
 
     def get_neighbour_ray_values(
         self, r: int, c: int, scaling: int, diagonals: bool = False
-    ) -> list[T]:
+    ) -> list[list[T]]:
         """Get the values of the neighbours of a cell at a given row, col in the grid.  Always from clockwise starting from the top.
 
         Args:
@@ -130,22 +130,6 @@ class Grid[T]:
                     skip -= 1
 
         return -1, -1  # Not found
-
-    def width(self) -> int:
-        """Width of the grid.
-
-        Returns:
-            int: Width of the grid.
-        """
-        return len(self.grid)
-
-    def height(self) -> int:
-        """Height of the grid.
-
-        Returns:
-            int: Height of the grid.
-        """
-        return len(self.grid[0])
 
     def __getitem__(self, row: int) -> list[T]:
         """Get the value at a given row in the grid.
