@@ -25,3 +25,9 @@ repos:
   hooks:
     - id: mypy
       args: [--ignore-missing-imports]
+
+- repo: https://github.com/LiquidFun/aoc_tiles
+  rev: 0.6.2
+  hooks:
+    - id: aoc-tiles
+      args: [--auto-add-tiles-to-git=amend, --show-total-stars-for-all-years=no]
