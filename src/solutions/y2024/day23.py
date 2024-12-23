@@ -1,29 +1,28 @@
 from loguru import logger as log
-from library.graph import Graph
 import networkx as nx
 
 from utils.decorators import benchmark
 
 
 @benchmark
-def part_a(data: Graph) -> int:
+def part_a(data: nx.Graph) -> int:
     return len(
         [
             cycle
-            for cycle in nx.simple_cycles(data.get(), 3)
+            for cycle in nx.simple_cycles(data, 3)
             if any(word[0] == "t" for word in cycle)
         ]
     )
 
 
 @benchmark
-def part_b(data: Graph) -> str:
-    return ",".join(sorted(max(nx.find_cliques(data.get()), key=len)))
+def part_b(data: nx.Graph) -> str:
+    return ",".join(sorted(max(nx.find_cliques(data), key=len)))
 
 
 @benchmark
-def parse(data: str) -> Graph:
-    graph = Graph()
+def parse(data: str) -> nx.Graph:
+    graph = nx.Graph()
     for line in data.splitlines():
         u, v = line.split("-")
         graph.add_edge(u, v)
