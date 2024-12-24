@@ -3,7 +3,7 @@ import itertools
 import networkx as nx
 from loguru import logger as log
 
-from library.graph import Graph
+from library.graph import graph_from_grid
 from library.grid import Grid
 from utils.decorators import benchmark
 
@@ -19,12 +19,12 @@ def get_possible_cheats(size: int) -> list[tuple[int, int, int]]:
 
 # Count the number of good cheats.
 def count_good_cheats(
-    graph: Graph,
+    graph: nx.Graph,
     start: tuple[int, int],
     end: tuple[int, int],
     max_cheat_distance: int,
 ) -> int:
-    source_path_lengths = nx.single_source_shortest_path_length(graph.get(), start)
+    source_path_lengths = nx.single_source_shortest_path_length(graph, start)
 
     original_length = source_path_lengths[end]
     good_cheats = 0
@@ -47,23 +47,23 @@ def count_good_cheats(
 
 
 @benchmark
-def part_a(data: tuple[Graph, tuple[int, int], tuple[int, int]]) -> int:
+def part_a(data: tuple[nx.Graph, tuple[int, int], tuple[int, int]]) -> int:
     graph, start, end = data
     return count_good_cheats(graph, start, end, 2)
 
 
 @benchmark
-def part_b(data: tuple[Graph, tuple[int, int], tuple[int, int]]) -> int:
+def part_b(data: tuple[nx.Graph, tuple[int, int], tuple[int, int]]) -> int:
     graph, start, end = data
     return count_good_cheats(graph, start, end, 20)
 
 
 @benchmark
-def parse(data: str) -> tuple[Graph, tuple[int, int], tuple[int, int]]:
+def parse(data: str) -> tuple[nx.Graph, tuple[int, int], tuple[int, int]]:
     grid = Grid([list(line) for line in data.splitlines()])
-    graph = Graph()
-    graph.populate_from_grid(
+    graph = graph_from_grid(
         grid,
+        False,
         allowed=[".", "S", "E"],
         blocked=["#"],
     )

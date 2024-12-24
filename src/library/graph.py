@@ -15,7 +15,7 @@ def graph_from_grid[
     allowed: list[T] | None = None,
     blocked: list[T] | None = None,
     function: Callable | None = None,
-) -> None:
+) -> (nx.Graph | nx.DiGraph):
     graph = nx.DiGraph() if directed else nx.Graph()
 
     for r in range(grid.width):

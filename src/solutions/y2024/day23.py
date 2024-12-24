@@ -1,5 +1,5 @@
-from loguru import logger as log
 import networkx as nx
+from loguru import logger as log
 
 from utils.decorators import benchmark
 
@@ -17,7 +17,9 @@ def part_a(data: nx.Graph) -> int:
 
 @benchmark
 def part_b(data: nx.Graph) -> str:
-    return ",".join(sorted(max(nx.find_cliques(data), key=len)))
+    cliques: list[list[str]] = list(nx.find_cliques(data))
+    largest_clique = max(cliques, key=len)
+    return ",".join(sorted(largest_clique))
 
 
 @benchmark
