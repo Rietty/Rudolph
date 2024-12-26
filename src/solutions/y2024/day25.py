@@ -20,7 +20,7 @@ def key_or_lock(grid: Grid) -> Schematic | None:
 
 
 def get_columns(grid: Grid[any]) -> list[str]:
-    return ["".join(column) for column in zip(*grid)]
+    return [grid.get_column(i) for i in range(grid.height)]
 
 
 def get_scores(columns: list[str]) -> list[int]:
