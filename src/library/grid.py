@@ -167,6 +167,28 @@ class Grid[T]:
                     skip -= 1
 
         return -1, -1  # Not found
+    
+    def get_column(self, c: int) -> list[T]:
+        """Get the values of a column in the grid.
+
+        Args:
+            c (int): Column to get the values of.
+
+        Returns:
+            list[T]: List of values in the column.
+        """
+        return [row[c] for row in self.grid]
+    
+    def get_row(self, r: int) -> list[T]:
+        """Get the values of a row in the grid.
+
+        Args:
+            r (int): Row to get the values of.
+
+        Returns:
+            list[T]: List of values in the row.
+        """
+        return self.__getitem__(r) 
 
     def __getitem__(self, row: int) -> list[T]:
         """Get the value at a given row in the grid.
