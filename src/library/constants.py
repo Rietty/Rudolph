@@ -1,4 +1,5 @@
-# Constants that will be commonly used when solving problems.
+"""Defined constants to be used."""
+
 from enum import Enum
 from typing import Final
 

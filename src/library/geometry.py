@@ -6,6 +6,8 @@ from loguru import logger as log
 
 @dataclass
 class Point:
+    """Represent a point in 2-dimensional space."""
+
     x: int
     y: int
 

@@ -12,7 +12,7 @@ docstring-code-line-length = 120
 [lint]
 # D - Enable all `pydocstyle` rules, limiting to those that adhere to the Pep257 convention enabled via `convention = "pep257"` below
 select = ["E501", "I", "D"]
-ignore = ["D103", "D203","D204","D211","D212","D400","D406","D407","E266","C901"]
+ignore = ["D100", "D103", "D203","D204","D211","D212","D400","D406","D407","E266","C901"]
 
 [lint.pylint]
 # Maximum number of arguments for function / method
