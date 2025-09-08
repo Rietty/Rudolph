@@ -1,4 +1,5 @@
-# Graph helper library for common graph operations used in problems.
+"""Graph helper library for common graph operations used in problems."""
+
 from typing import Callable
 
 import networkx as nx
@@ -7,15 +8,13 @@ from loguru import logger as log
 from library.grid import Grid
 
 
-def graph_from_grid[
-    T
-](
+def graph_from_grid[T](
     grid: Grid,
     directed: bool = False,
     allowed: list[T] | None = None,
     blocked: list[T] | None = None,
     function: Callable | None = None,
-) -> (nx.Graph | nx.DiGraph):
+) -> nx.Graph | nx.DiGraph:
     graph = nx.DiGraph() if directed else nx.Graph()
 
     for r in range(grid.width):
