@@ -12,9 +12,7 @@ def path_exists(graph: nx.DiGraph, path: list[int]) -> bool:
 def part_a(data: tuple[nx.DiGraph, list[list[int]]]) -> int:
     graph, updates = data
 
-    return sum(
-        update[len(update) // 2] for update in updates if path_exists(graph, update)
-    )
+    return sum(update[len(update) // 2] for update in updates if path_exists(graph, update))
 
 
 @benchmark
@@ -34,12 +32,8 @@ def part_b(data: tuple[nx.DiGraph, list[list[int]]]) -> int:
 def parse(data: str) -> tuple[nx.DiGraph, list[list[int]]]:
     r, u = data.split("\n\n")
 
-    rules: list[tuple[int, ...]] = [
-        tuple(map(int, rule.split("|"))) for rule in r.splitlines()
-    ]
-    updates: list[list[int]] = [
-        list(map(int, update.split(","))) for update in u.splitlines()
-    ]
+    rules: list[tuple[int, ...]] = [tuple(map(int, rule.split("|"))) for rule in r.splitlines()]
+    updates: list[list[int]] = [list(map(int, update.split(","))) for update in u.splitlines()]
 
     graph = nx.DiGraph()
     graph.add_edges_from(rules)

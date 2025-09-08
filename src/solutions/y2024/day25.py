@@ -53,9 +53,7 @@ def part_b(data: list[Grid]) -> int:
 
 @benchmark
 def parse(data: str) -> list[Grid]:
-    return [
-        Grid([list(line) for line in grid.splitlines()]) for grid in data.split("\n\n")
-    ]
+    return [Grid([list(line) for line in grid.splitlines()]) for grid in data.split("\n\n")]
 
 
 test_data_a = """#####

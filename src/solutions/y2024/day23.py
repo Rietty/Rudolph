@@ -6,13 +6,7 @@ from utils.decorators import benchmark
 
 @benchmark
 def part_a(data: nx.Graph) -> int:
-    return len(
-        [
-            cycle
-            for cycle in nx.simple_cycles(data, 3)
-            if any(word[0] == "t" for word in cycle)
-        ]
-    )
+    return len([cycle for cycle in nx.simple_cycles(data, 3) if any(word[0] == "t" for word in cycle)])
 
 
 @benchmark

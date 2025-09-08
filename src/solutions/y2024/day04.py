@@ -31,12 +31,7 @@ def part_b(data: Grid) -> int:
                 d2 = data[r + 1][c - 1]
                 d3 = data[r - 1][c - 1]
                 d4 = data[r - 1][c + 1]
-                if (
-                    d1 in "SM"
-                    and d2 in "SM"
-                    and d3 == opposites[d1]
-                    and d4 == opposites[d2]
-                ):
+                if d1 in "SM" and d2 in "SM" and d3 == opposites[d1] and d4 == opposites[d2]:
                     count += 1
 
     return count

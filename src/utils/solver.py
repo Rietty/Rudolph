@@ -6,9 +6,7 @@ from loguru import logger as log
 from typing_extensions import Literal
 
 
-def solve_problem[
-    T
-](
+def solve_problem[T](
     year: int,
     day: int,
     part: Literal["a", "b"] | None,
@@ -37,11 +35,7 @@ def solve_problem[
         puzzle = Puzzle(year=year, day=day)
 
         entry = next(
-            (
-                entry
-                for entry in puzzle.submit_results
-                if entry["part"] == part and entry["value"] == str(result)
-            ),
+            (entry for entry in puzzle.submit_results if entry["part"] == part and entry["value"] == str(result)),
             None,
         )
 
@@ -49,9 +43,7 @@ def solve_problem[
             log.info(" ".join(entry["message"].split()))
 
 
-def test_problem[
-    T
-](
+def test_problem[T](
     part: str,
     parse: Callable[[str], T],
     part_a: Callable[[T], int],

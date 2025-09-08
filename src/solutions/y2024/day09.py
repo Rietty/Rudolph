@@ -39,11 +39,7 @@ def super_defragment_disk(blocks: list[Block]) -> None:
     # Go through the blocks using pointers to keep track of the size of the same type of blocks and their starting index to add to the deques.
     left, right = 0, 0
     while right < len(blocks):
-        while (
-            right < len(blocks)
-            and blocks[right].type == blocks[left].type
-            and blocks[right].id == blocks[left].id
-        ):
+        while right < len(blocks) and blocks[right].type == blocks[left].type and blocks[right].id == blocks[left].id:
             right += 1
 
         if blocks[left].type:

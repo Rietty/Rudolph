@@ -17,9 +17,7 @@ class Grid[T]:
         self.width = len(grid)
         self.height = len(grid[0])
 
-    def get_neighbours(
-        self, r: int, c: int, diagonals: bool = False
-    ) -> list[tuple[int, int]]:
+    def get_neighbours(self, r: int, c: int, diagonals: bool = False) -> list[tuple[int, int]]:
         """Obtains the neighbours of a cell at a given row, col in the grid. Always from clockwise starting from the top.
 
         Args:
@@ -58,9 +56,7 @@ class Grid[T]:
         """
         return [self.grid[nr][nc] for nr, nc in self.get_neighbours(r, c, diagonals)]
 
-    def get_neighbour_rays(
-        self, r: int, c: int, scaling: int, diagonals: bool = False
-    ) -> list[list[tuple[int, int]]]:
+    def get_neighbour_rays(self, r: int, c: int, scaling: int, diagonals: bool = False) -> list[list[tuple[int, int]]]:
         """Get the values of the neighbours of a cell at a given row, col in the grid.  Always from clockwise starting from the top.
 
         Args:
@@ -93,9 +89,7 @@ class Grid[T]:
 
         return rays
 
-    def get_neighbour_ray_values(
-        self, r: int, c: int, scaling: int, diagonals: bool = False
-    ) -> list[list[T]]:
+    def get_neighbour_ray_values(self, r: int, c: int, scaling: int, diagonals: bool = False) -> list[list[T]]:
         """Get the values of the neighbours of a cell at a given row, col in the grid.  Always from clockwise starting from the top.
 
         Args:
@@ -107,10 +101,7 @@ class Grid[T]:
         Returns:
             list[T]: List of the values of the neighbours of the cell.
         """
-        return [
-            [self.grid[nr][nc] for nr, nc in ray]
-            for ray in self.get_neighbour_rays(r, c, scaling, diagonals)
-        ]
+        return [[self.grid[nr][nc] for nr, nc in ray] for ray in self.get_neighbour_rays(r, c, scaling, diagonals)]
 
     def get_region(self, r: int, c: int, s: int) -> list[list[tuple[int, int]]]:
         """Get the region of the grid around a given row, col in the grid. Of size s x s. So if s = 3, it will return a 3x3 grid around the cell.
@@ -144,10 +135,7 @@ class Grid[T]:
         Returns:
             list[list[T]]: List of the values of the region.
         """
-        return [
-            [self.grid[i][j] for j in range(c - s // 2, c + s // 2 + 1)]
-            for i in range(r - s // 2, r + s // 2 + 1)
-        ]
+        return [[self.grid[i][j] for j in range(c - s // 2, c + s // 2 + 1)] for i in range(r - s // 2, r + s // 2 + 1)]
 
     def find_value(self, value: T, skip: int = 0) -> tuple[int, int]:
         """Find the first occurrence of a value in the grid.
