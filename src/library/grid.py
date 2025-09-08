@@ -18,7 +18,7 @@ class Grid[T]:
         self.height = len(grid[0])
 
     def get_neighbours(self, r: int, c: int, diagonals: bool = False) -> list[tuple[int, int]]:
-        """Obtains the neighbours of a cell at a given row, col in the grid. Always from clockwise starting from the top.
+        """Obtain the neighbours of a cell at a given row, col in the grid. Always from clockwise starting from the top.
 
         Args:
             r (int): Row of the cell.
