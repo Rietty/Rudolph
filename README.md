@@ -8,11 +8,5 @@ This repository consists of all my solutions to [Advent of Code](https://advento
 
 - All solutions in this repository are written in Python 3.13.
 - I use the following packages for general quality:
-  - [`black`](https://github.com/psf/black) for code formatting. 
-  - [`flake8`](https://github.com/PyCQA/flake8) for linting.
-  - [`aoc_tiles`](https://github.com/LiquidFun/aoc_tiles) for the README tiles.
+  - [`ruff`](https://github.com/astral-sh/ruff) for for linting and formatting.
   - [`mypy`](https://github.com/python/mypy) for static typing enforcement.
-  - [`isort`](https://github.com/pycqa/isort) for consistent dependency organization.
-
-<!-- AOC TILES BEGIN -->
-<!-- AOC TILES END -->
