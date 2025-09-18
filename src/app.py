@@ -2,9 +2,11 @@ import importlib
 import sys
 
 import cloup
+import dotenv
 from loguru import logger as log
-
 from utils.solver import solve_problem, test_problem
+
+dotenv.load_dotenv()
 
 
 @cloup.command()
