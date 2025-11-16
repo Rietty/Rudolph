@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rudolph"
+version = "0.1.0"
+description = "Advent of Code Solutions!"
+authors = [{ name = "Juliette H. Lavoie" }]
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+    "advent-of-code-data",
+    "networkx",
+    "pandas",
+    "numpy",
+    "click",
+    "cloup",
+    "pyyaml",
+    "loguru",
+    "pre-commit>=4.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "mypy",
+    "isort",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+extend-select = ["I"]
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = "3.13"
+strict = false
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_no_return = true
+warn_unreachable = true
