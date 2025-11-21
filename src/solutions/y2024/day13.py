@@ -1,8 +1,6 @@
 import re
 import typing
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 type Machine = tuple[int, int, int, int, int, int]

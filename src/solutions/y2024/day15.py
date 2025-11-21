@@ -1,7 +1,5 @@
 import typing
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 type Coordinates = tuple[int, int]
@@ -15,7 +13,9 @@ ROBOT: typing.Final[str] = "@"
 
 
 # Function to advance one instruction in the given direction.
-def advance(grid: Grid, robot_pos: Coordinates, direction: str) -> tuple[Grid, Coordinates]:
+def advance(
+    grid: Grid, robot_pos: Coordinates, direction: str
+) -> tuple[Grid, Coordinates]:
     direction_map: dict[str, Coordinates] = {
         "^": (0, -1),
         "v": (0, 1),

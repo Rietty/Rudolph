@@ -3,8 +3,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 from functools import reduce
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 WIDTH: typing.Final[int] = 101

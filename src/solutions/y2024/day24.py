@@ -1,8 +1,6 @@
 from collections import deque
 from enum import Enum
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 

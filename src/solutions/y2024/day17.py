@@ -1,8 +1,6 @@
 import math
 from enum import Enum
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 
@@ -95,7 +93,12 @@ def part_b(data: tuple[list[int], list[int]]) -> int:
 @benchmark
 def parse(data: str) -> tuple[list[int], list[int]]:
     registers_str, program_str = data.split("\n\n")
-    registers = [int(num) for line in registers_str.splitlines() for num in line.split(":") if num.strip().isdigit()]
+    registers = [
+        int(num)
+        for line in registers_str.splitlines()
+        for num in line.split(":")
+        if num.strip().isdigit()
+    ]
     program = list(map(int, program_str.split(":")[1].split(",")))
     return registers, program
 

@@ -2,8 +2,6 @@ from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from typing import Final
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 Iterations: Final[int] = 2000

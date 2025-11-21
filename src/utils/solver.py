@@ -35,7 +35,11 @@ def solve_problem[T](
         puzzle = Puzzle(year=year, day=day)
 
         entry = next(
-            (entry for entry in puzzle.submit_results if entry["part"] == part and entry["value"] == str(result)),
+            (
+                entry
+                for entry in puzzle.submit_results
+                if entry["part"] == part and entry["value"] == str(result)
+            ),
             None,
         )
 

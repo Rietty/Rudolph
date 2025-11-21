@@ -1,7 +1,5 @@
 from collections import defaultdict
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 type Coordinates = tuple[int, int]
@@ -12,7 +10,9 @@ type Regions = list[Region]
 def get_perimeter(region: Region) -> int:
     perimeter = 0
     for x, y in region:
-        perimeter += 4 - sum((x + dx, y + dy) in region for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1)))
+        perimeter += 4 - sum(
+            (x + dx, y + dy) in region for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1))
+        )
     return perimeter
 
 
@@ -39,7 +39,11 @@ def get_corners(region: Region) -> int:
                 corners += 1
 
         for dx, dy, nx1, ny1, nx2, ny2 in diagonal_checks:
-            if (x + dx, y + dy) not in region and (x + nx1, y + ny1) in region and (x + nx2, y + ny2) in region:
+            if (
+                (x + dx, y + dy) not in region
+                and (x + nx1, y + ny1) in region
+                and (x + nx2, y + ny2) in region
+            ):
                 corners += 1
     return corners
 
@@ -76,13 +80,17 @@ def get_regions(data: list[list[str]]) -> dict[str, Regions]:
 @benchmark
 def part_a(data: list[list[str]]) -> int:
     regions = get_regions(data)
-    return sum(get_perimeter(r) * get_area(r) for rlist in regions.values() for r in rlist)
+    return sum(
+        get_perimeter(r) * get_area(r) for rlist in regions.values() for r in rlist
+    )
 
 
 @benchmark
 def part_b(data: list[list[str]]) -> int:
     regions = get_regions(data)
-    return sum(get_corners(r) * get_area(r) for rlist in regions.values() for r in rlist)
+    return sum(
+        get_corners(r) * get_area(r) for rlist in regions.values() for r in rlist
+    )
 
 
 @benchmark

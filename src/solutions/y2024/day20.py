@@ -1,7 +1,6 @@
 import itertools
 
 import networkx as nx
-from loguru import logger as log
 
 from library.graph import graph_from_grid
 from library.grid import Grid
@@ -10,7 +9,11 @@ from utils.decorators import benchmark
 
 # Possible cheats are all the points within a specific (manhattan) distance.
 def get_possible_cheats(size: int) -> list[tuple[int, int, int]]:
-    return [(x, y, abs(x) + abs(y)) for x, y in itertools.product(range(-(size + 1), size + 2), repeat=2) if abs(x) + abs(y) <= size]
+    return [
+        (x, y, abs(x) + abs(y))
+        for x, y in itertools.product(range(-(size + 1), size + 2), repeat=2)
+        if abs(x) + abs(y) <= size
+    ]
 
 
 # Count the number of good cheats.
@@ -30,7 +33,11 @@ def count_good_cheats(
             x, y = node
             cheat_node = (x + cheat_x, y + cheat_y)
             if cheat_node in graph.nodes:
-                new_length = source_path_lengths[node] + (original_length - source_path_lengths[cheat_node]) + cheat_distance
+                new_length = (
+                    source_path_lengths[node]
+                    + (original_length - source_path_lengths[cheat_node])
+                    + cheat_distance
+                )
 
                 if original_length - new_length >= 100:
                     good_cheats += 1

@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 

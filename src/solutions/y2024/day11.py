@@ -2,8 +2,6 @@ import math
 from collections import defaultdict
 from functools import reduce
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 
@@ -25,9 +23,9 @@ def apply_rules[T](data: dict) -> defaultdict[int, int]:
         if s == 0:
             new_stones[1] += f
         elif (d := count_digits(s)) % 2 == 0:
-            l, r = split_number(s, d)
-            new_stones[l] += f
-            new_stones[r] += f
+            left, right = split_number(s, d)
+            new_stones[left] += f
+            new_stones[right] += f
         else:
             new_stones[s * 2024] += f
 
