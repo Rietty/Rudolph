@@ -1,11 +1,11 @@
-from loguru import logger as log
-
 from library.constants import Cardinals
 from library.grid import Grid
 from utils.decorators import benchmark
 
 
-def traverse_route(data: Grid, er: int = -1, ec: int = -1, detect_loops: bool = False) -> tuple[set, bool]:
+def traverse_route(
+    data: Grid, er: int = -1, ec: int = -1, detect_loops: bool = False
+) -> tuple[set, bool]:
     path: set[tuple[tuple[int, int], int]] = set()
     n, m = data.width, data.height
     r, c = data.find_value("^")
@@ -21,7 +21,11 @@ def traverse_route(data: Grid, er: int = -1, ec: int = -1, detect_loops: bool = 
         dr, dc = Cardinals[dir]
         nr, nc = r + dr, c + dc
 
-        while 0 <= nr < n and 0 <= nc < m and (data[nr][nc] == "#" or (nr == er and nc == ec)):
+        while (
+            0 <= nr < n
+            and 0 <= nc < m
+            and (data[nr][nc] == "#" or (nr == er and nc == ec))
+        ):
             dir = (dir + 1) % 4
             dr, dc = Cardinals[dir]
             nr, nc = r + dr, c + dc

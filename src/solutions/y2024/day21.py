@@ -1,5 +1,3 @@
-from loguru import logger as log
-
 """
 +---+---+---+
 | 7 | 8 | 9 |

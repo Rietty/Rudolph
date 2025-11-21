@@ -1,7 +1,6 @@
 import typing
 
 import networkx as netx
-from loguru import logger as log
 
 from utils.decorators import benchmark
 
@@ -54,7 +53,9 @@ def part_b(data: list[tuple[int, int]]) -> str:
 
 @benchmark
 def parse(data: str) -> list[tuple[int, int]]:
-    return [(int(x), int(y)) for x, y in (line.split(",") for line in data.splitlines())]
+    return [
+        (int(x), int(y)) for x, y in (line.split(",") for line in data.splitlines())
+    ]
 
 
 test_data_a = """5,4

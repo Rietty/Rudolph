@@ -1,5 +1,3 @@
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 
@@ -7,7 +5,9 @@ def is_safe(row: list[int]) -> bool:
     # Check to see if it is strictly decreasing or strictly increasing
     if sorted(row) == row or sorted(row, reverse=True) == row:
         # Check to see the difference between any 2 adjacent numbers is at most 3 and at least 1
-        if all(abs(a - b) <= 3 for a, b in zip(row, row[1:])) and all(abs(a - b) >= 1 for a, b in zip(row, row[1:])):
+        if all(abs(a - b) <= 3 for a, b in zip(row, row[1:])) and all(
+            abs(a - b) >= 1 for a, b in zip(row, row[1:])
+        ):
             return True
     return False
 

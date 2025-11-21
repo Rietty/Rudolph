@@ -1,7 +1,5 @@
 import re
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 

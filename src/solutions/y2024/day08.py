@@ -1,13 +1,13 @@
 import itertools
 
-from loguru import logger as log
-
 from utils.decorators import benchmark
 
 type Coordinates = tuple[int, int]
 
 
-def generate_antinode_pair(a: Coordinates, b: Coordinates, n: int, m: int) -> Coordinates:
+def generate_antinode_pair(
+    a: Coordinates, b: Coordinates, n: int, m: int
+) -> Coordinates:
     ax, ay = a
     bx, by = b
     nx = bx + (bx - ax)
@@ -19,7 +19,9 @@ def generate_antinode_pair(a: Coordinates, b: Coordinates, n: int, m: int) -> Co
     return -1, -1
 
 
-def generate_antinode_line(a: Coordinates, b: Coordinates, n: int, m: int) -> list[Coordinates]:
+def generate_antinode_line(
+    a: Coordinates, b: Coordinates, n: int, m: int
+) -> list[Coordinates]:
     res = []
     ax, ay = a
     bx, by = b

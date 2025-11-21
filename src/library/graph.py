@@ -3,7 +3,6 @@
 from typing import Callable
 
 import networkx as nx
-from loguru import logger as log
 
 from library.grid import Grid
 

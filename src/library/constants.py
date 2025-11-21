@@ -1,6 +1,5 @@
 """Defined constants to be used."""
 
-from enum import Enum
 from typing import Final
 
 # The cardinal and ordinal directions
