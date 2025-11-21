@@ -10,3 +10,6 @@ This repository consists of all my solutions to [Advent of Code](https://advento
 - I use the following packages for general quality:
   - [`ruff`](https://github.com/astral-sh/ruff) for for linting and formatting.
   - [`mypy`](https://github.com/python/mypy) for static typing enforcement.
+
+<!-- AOC TILES BEGIN -->
+<!-- AOC TILES END -->
