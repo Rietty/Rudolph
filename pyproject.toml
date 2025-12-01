@@ -20,6 +20,7 @@ dependencies = [
     "pyyaml",
     "loguru",
     "pre-commit>=4.4.0",
+    "python-dotenv"
 ]
 
 [project.optional-dependencies]

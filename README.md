@@ -13,8 +13,14 @@ This repository consists of all my solutions to [Advent of Code](https://advento
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  Advent of Code - 56/500 ⭐
+  Advent of Code - 58/502 ⭐
 </h1>
+<h1 align="center">
+  2025 - 2 ⭐ - Python
+</h1>
+<a href="src/solutions/y2025/day01.py">
+  <img src=".aoc_tiles/tiles/2025/01.png" width="161px">
+</a>
 <h1 align="center">
   2024 - 48 ⭐ - Python
 </h1>
