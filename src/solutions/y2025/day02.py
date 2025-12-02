@@ -1,43 +1,32 @@
 from utils.decorators import benchmark
 
 
-def is_repeated_twice(n: int) -> bool:
-    s = str(n)
-    if len(s) & 1:
-        return False
-    h = len(s) // 2
-    return s[:h] == s[h:]
-
-
-def is_repeated_n_times(n: int) -> bool:
+def is_repeated(n: int, exact_twice=False) -> bool:
     s = str(n)
     L = len(s)
+    if exact_twice:
+        if L & 1:
+            return False
+        h = L // 2
+        return s[:h] == s[h:]
     for d in range(1, L // 2 + 1):
-        if L % d:
-            continue
-        if s == s[:d] * (L // d):
+        if L % d == 0 and s == s[:d] * (L // d):
             return True
     return False
 
 
 @benchmark
 def part_a(data: list[tuple[int, int]]) -> int:
-    sum = 0
-    for low, high in data:
-        for i in range(low, high + 1):
-            if is_repeated_twice(i):
-                sum += i
-    return sum
+    return sum(
+        i for low, high in data for i in range(low, high + 1) if is_repeated(i, True)
+    )
 
 
 @benchmark
 def part_b(data: list[tuple[int, int]]) -> int:
-    sum = 0
-    for low, high in data:
-        for i in range(low, high + 1):
-            if is_repeated_n_times(i):
-                sum += i
-    return sum
+    return sum(
+        i for low, high in data for i in range(low, high + 1) if is_repeated(i, False)
+    )
 
 
 @benchmark
