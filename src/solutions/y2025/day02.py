@@ -3,16 +3,10 @@ from utils.decorators import benchmark
 
 def is_repeated(n: int, exact_twice=False) -> bool:
     s = str(n)
-    L = len(s)
     if exact_twice:
-        if L & 1:
-            return False
-        h = L // 2
-        return s[:h] == s[h:]
-    for d in range(1, L // 2 + 1):
-        if L % d == 0 and s == s[:d] * (L // d):
-            return True
-    return False
+        return len(s) % 2 == 0 and s == s[:2] * (len(s) // 2)
+    else:
+        return s in (s + s)[1:-1]
 
 
 @benchmark
