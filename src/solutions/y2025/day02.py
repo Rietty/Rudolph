@@ -1,7 +1,7 @@
 from utils.decorators import benchmark
 
 
-def is_repeat_twice(n: int) -> bool:
+def is_repeated_twice(n: int) -> bool:
     s = str(n)
     if len(s) & 1:
         return False
@@ -9,7 +9,7 @@ def is_repeat_twice(n: int) -> bool:
     return s[:h] == s[h:]
 
 
-def is_repeated(n: int) -> bool:
+def is_repeated_n_times(n: int) -> bool:
     s = str(n)
     L = len(s)
     for d in range(1, L // 2 + 1):
@@ -25,7 +25,7 @@ def part_a(data: list[tuple[int, int]]) -> int:
     sum = 0
     for low, high in data:
         for i in range(low, high + 1):
-            if is_repeat_twice(i):
+            if is_repeated_twice(i):
                 sum += i
     return sum
 
@@ -35,7 +35,7 @@ def part_b(data: list[tuple[int, int]]) -> int:
     sum = 0
     for low, high in data:
         for i in range(low, high + 1):
-            if is_repeated(i):
+            if is_repeated_n_times(i):
                 sum += i
     return sum
 
