@@ -13,13 +13,46 @@ This repository consists of all my solutions to [Advent of Code](https://advento
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  Advent of Code - 58/502 ⭐
+  Advent of Code - 80/508 ⭐
 </h1>
 <h1 align="center">
-  2025 - 2 ⭐ - Python
+  2025 - 24 ⭐ - Python
 </h1>
 <a href="src/solutions/y2025/day01.py">
   <img src=".aoc_tiles/tiles/2025/01.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day02.py">
+  <img src=".aoc_tiles/tiles/2025/02.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day03.py">
+  <img src=".aoc_tiles/tiles/2025/03.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day04.py">
+  <img src=".aoc_tiles/tiles/2025/04.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day05.py">
+  <img src=".aoc_tiles/tiles/2025/05.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day06.py">
+  <img src=".aoc_tiles/tiles/2025/06.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day07.py">
+  <img src=".aoc_tiles/tiles/2025/07.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day08.py">
+  <img src=".aoc_tiles/tiles/2025/08.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day09.py">
+  <img src=".aoc_tiles/tiles/2025/09.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day10.py">
+  <img src=".aoc_tiles/tiles/2025/10.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day11.py">
+  <img src=".aoc_tiles/tiles/2025/11.png" width="161px">
+</a>
+<a href="src/solutions/y2025/day12.py">
+  <img src=".aoc_tiles/tiles/2025/12.png" width="161px">
 </a>
 <h1 align="center">
   2024 - 48 ⭐ - Python
