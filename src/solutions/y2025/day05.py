@@ -43,11 +43,7 @@ def part_b(data: tuple[Ranges, Ingredients]) -> int:
 @benchmark
 def parse(data: str) -> tuple[Ranges, Ingredients]:
     a, b = re.split(r"\n\s*\n", data.strip())  # God bless regex.
-
-    def pr(s):
-        return tuple(map(int, s.split("-")))
-
-    ranges = [pr(x) for x in a.splitlines() if x.strip()]
+    ranges = [tuple(map(int, x.split("-"))) for x in a.splitlines() if x.strip()]
     available = [int(x) for x in b.splitlines() if x.strip()]
     return ranges, available
 
