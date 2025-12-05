@@ -2,9 +2,12 @@ import re
 
 from utils.decorators import benchmark
 
+type Ranges = list[tuple[int, int]]
+type Ingredients = list[int]
+
 
 @benchmark
-def part_a(data: tuple[list[tuple[int, int]], list[int]]) -> int:
+def part_a(data: tuple[Ranges, Ingredients]) -> int:
     ranges, ingredients = data
     fresh = 0
     for x in ingredients:
@@ -16,10 +19,10 @@ def part_a(data: tuple[list[tuple[int, int]], list[int]]) -> int:
 
 
 @benchmark
-def part_b(data: tuple[list[tuple[int, int]], list[int]]) -> int:
+def part_b(data: tuple[Ranges, Ingredients]) -> int:
     ranges, _ = data
     ranges = sorted(ranges, key=lambda x: x[0])
-    merged: list[tuple[int, int]] = []
+    merged: Ranges = []
 
     # Basically going to merge overlapping ranges together as much as we can.
     i, j = ranges[0]
@@ -38,7 +41,7 @@ def part_b(data: tuple[list[tuple[int, int]], list[int]]) -> int:
 
 
 @benchmark
-def parse(data: str) -> tuple[list[tuple[int, int]], list[int]]:
+def parse(data: str) -> tuple[Ranges, Ingredients]:
     a, b = re.split(r"\n\s*\n", data.strip())  # God bless regex.
 
     def pr(s):
