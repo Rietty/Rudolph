@@ -39,7 +39,7 @@ def part_b(data: tuple[list[tuple[int, int]], list[int]]) -> int:
 
 @benchmark
 def parse(data: str) -> tuple[list[tuple[int, int]], list[int]]:
-    a, b = re.split(r"\n\s*\n", data.strip())
+    a, b = re.split(r"\n\s*\n", data.strip())  # God bless regex.
 
     def pr(s):
         return tuple(map(int, s.split("-")))
