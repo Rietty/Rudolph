@@ -1,3 +1,4 @@
+import cProfile
 import time
 from typing import Callable
 
@@ -26,5 +27,18 @@ def benchmark(func: Callable) -> Callable[..., int]:
             log.debug(f"{func_type} Time: {elapsed_time * 1e9:.3f} ns")
 
         return result
+
+    return wrapper
+
+
+# Decorator to profile a given function.
+def profile(func):
+    # Uses cProfile and dumps a file with the profiled information to view.
+    def wrapper(*args, **kwargs):
+        datafn = func.__name__ + ".profile"  # Name the data file sensibly
+        prof = cProfile.Profile()
+        retval = prof.runcall(func, *args, **kwargs)
+        prof.dump_stats(datafn)
+        return retval
 
     return wrapper
