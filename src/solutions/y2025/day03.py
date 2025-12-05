@@ -8,13 +8,11 @@ def max_joltage(input: int, n: int) -> int:
         return input
     remove = L - n
     st = []
-    ap = st.append
-    pop = st.pop
     for d in s:
         while remove and st and st[-1] < d:
-            pop()
+            st.pop()
             remove -= 1
-        ap(d)
+        st.append(d)
     if remove:
         st = st[:-remove]
     return int("".join(st))
