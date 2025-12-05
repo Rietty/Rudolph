@@ -6,13 +6,13 @@ from utils.decorators import benchmark
 @benchmark
 def part_a(data: tuple[list[tuple[int, int]], list[int]]) -> int:
     ranges, ingredients = data
-    c = 0
+    fresh = 0
     for x in ingredients:
         for a, b in ranges:
             if a <= x <= b:
-                c += 1
+                fresh += 1
                 break
-    return c
+    return fresh
 
 
 @benchmark
@@ -21,6 +21,7 @@ def part_b(data: tuple[list[tuple[int, int]], list[int]]) -> int:
     ranges = sorted(ranges, key=lambda x: x[0])
     merged: list[tuple[int, int]] = []
 
+    # Basically going to merge overlapping ranges together as much as we can.
     i, j = ranges[0]
 
     for a, b in ranges[1:]:
@@ -32,6 +33,7 @@ def part_b(data: tuple[list[tuple[int, int]], list[int]]) -> int:
 
     merged.append((i, j))
 
+    # Whatever is left over, we iterate and sum up all the differences between end and start of range.
     return sum(end - start + 1 for start, end in merged)
 
 
