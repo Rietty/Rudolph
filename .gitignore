@@ -166,3 +166,5 @@ cython_debug/
 
 **/bigdata/**
 session.cookie
+
+.ruff_cache
