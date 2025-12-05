@@ -19,8 +19,9 @@ dependencies = [
     "cloup",
     "pyyaml",
     "loguru",
-    "pre-commit>=4.4.0",
-    "python-dotenv"
+    "pre-commit",
+    "python-dotenv",
+    "intervaltree"
 ]
 
 [project.optional-dependencies]
