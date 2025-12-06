@@ -45,10 +45,10 @@ def parse(data: str) -> tuple[Worksheet, Worksheet]:
 
     real = []
     for b in blocks:
-        op = b[-1].strip()
-        cols = zip(*b[:-1])
-        nums = ["".join(col).strip() for col in reversed(list(cols))]
-        real.append([x for x in nums if x] + [op])
+        nums = [
+            "".join(col).strip() for col in reversed(list(zip(*b[-1].strip()[:-1])))
+        ]
+        real.append([x for x in nums if x] + [b[-1].strip()])
 
     return fake, real
 
