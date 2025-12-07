@@ -34,8 +34,8 @@ def part_a(data: list[str]) -> int:
 
 @benchmark
 def part_b(data: list[str]) -> int:
-    _, quantam = emitter(data)
-    return quantam
+    _, quantum = emitter(data)
+    return quantum
 
 
 @benchmark
