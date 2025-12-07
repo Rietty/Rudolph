@@ -21,7 +21,8 @@ dependencies = [
     "loguru",
     "pre-commit",
     "python-dotenv",
-    "intervaltree"
+    "intervaltree",
+    "numba"
 ]
 
 [project.optional-dependencies]

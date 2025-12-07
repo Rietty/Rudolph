@@ -1,27 +1,28 @@
 from utils.decorators import benchmark
 
 
-# Instead of a graph easier to model this problem row by row instead and just.. count?
-# Why the fuck didn't I think of this ages ago???
 def emitter(data: list[str]) -> tuple[int, int]:
-    counts = {data[0].index("S"): 1}
+    width = len(data[0])
+    counts = [0] * width
+    counts[data[0].index("S")] = 1
     splits = 0
 
     for line in data[1:]:
-        nc = {}
-        for c, n in counts.items():
-            hit = 0 <= c < len(data[0]) and line[c] == "^"
-            if hit:
+        new = [0] * width
+        for c, n in enumerate(counts):
+            if n == 0:
+                continue
+            if line[c] == "^":
                 splits += 1
-                for nc2 in (c - 1, c + 1):
-                    if 0 <= nc2 < len(data[0]):
-                        nc[nc2] = nc.get(nc2, 0) + n
+                if c > 0:
+                    new[c - 1] += n
+                if c < width - 1:
+                    new[c + 1] += n
             else:
-                if 0 <= c < len(data[0]):
-                    nc[c] = nc.get(c, 0) + n
-        counts = nc
+                new[c] += n
+        counts = new
 
-    return splits, sum(counts.values())
+    return splits, sum(counts)
 
 
 @benchmark
