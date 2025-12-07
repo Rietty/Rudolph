@@ -8,18 +8,16 @@ def emitter(data: list[str]) -> tuple[int, int]:
     splits = 0
 
     for line in data[1:]:
-        nb, nc = set(), {}
+        nc = {}
         for c, n in counts.items():
             hit = 0 <= c < len(data[0]) and line[c] == "^"
             if hit:
                 splits += 1
                 for nc2 in (c - 1, c + 1):
                     if 0 <= nc2 < len(data[0]):
-                        nb.add(nc2)
                         nc[nc2] = nc.get(nc2, 0) + n
             else:
                 if 0 <= c < len(data[0]):
-                    nb.add(c)
                     nc[c] = nc.get(c, 0) + n
         counts = nc
 
