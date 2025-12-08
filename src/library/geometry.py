@@ -1,131 +1,80 @@
 # Common geometry functions and calculations for various problems.
 from dataclasses import dataclass
 
+_SHORTHAND = "xyzwvutsrqponmlkjihgfedcba"  # 26 possible indices
 
-@dataclass
+
+@dataclass(frozen=True)
 class Point:
-    """Represent a point in 2-dimensional space."""
-
-    x: int
-    y: int
+    coords: tuple
 
     def __hash__(self):
-        return (self.x << 32) ^ self.y
+        h = 0
+        for c in self.coords:
+            h = (h * 1315423911) ^ c
+        return h
 
-    def __add__(self, other):
-        return Point(self.x + other.x, self.y + other.y)
+    def _binop(self, other, op):
+        return Point(tuple(op(a, b) for a, b in zip(self.coords, other.coords)))
 
-    def __sub__(self, other):
-        return Point(self.x - other.x, self.y - other.y)
+    def __add__(self, o):
+        return self._binop(o, lambda a, b: a + b)
 
-    def __mul__(self, other):
-        return Point(self.x * other.x, self.y * other.y)
+    def __sub__(self, o):
+        return self._binop(o, lambda a, b: a - b)
 
-    def __truediv__(self, other):
-        return Point(self.x / other.x, self.y / other.y)
+    def __mul__(self, o):
+        return self._binop(o, lambda a, b: a * b)
 
-    def __floordiv__(self, other):
-        return Point(self.x // other.x, self.y // other.y)
+    def __truediv__(self, o):
+        return self._binop(o, lambda a, b: a / b)
 
-    def __mod__(self, other):
-        return Point(self.x % other.x, self.y % other.y)
+    def __floordiv__(self, o):
+        return self._binop(o, lambda a, b: a // b)
 
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
+    def __mod__(self, o):
+        return self._binop(o, lambda a, b: a % b)
 
-    def __ne__(self, other):
-        return self.x != other.x or self.y != other.y
+    def __eq__(self, o):
+        return self.coords == o.coords
 
-    def __lt__(self, other):
-        return self.x < other.x and self.y < other.y
+    def __ne__(self, o):
+        return self.coords != o.coords
 
-    def __le__(self, other):
-        return self.x <= other.x and self.y <= other.y
+    # Lexicographic order (fast, supports sorting)
+    def __lt__(self, o):
+        return self.coords < o.coords
 
-    def __gt__(self, other):
-        return self.x > other.x and self.y > other.y
+    def __le__(self, o):
+        return self.coords <= o.coords
 
-    def __ge__(self, other):
-        return self.x >= other.x and self.y >= other.y
+    def __gt__(self, o):
+        return self.coords > o.coords
 
-    def __str__(self):
-        return f"({self.x}, {self.y})"
+    def __ge__(self, o):
+        return self.coords >= o.coords
 
-    def __repr__(self):
-        return f"Point({self.x}, {self.y})"
-
-
-@dataclass
-class Point3D:
-    x: int
-    y: int
-    z: int
-
-    def __hash__(self):
-        return (self.x << 40) ^ (self.y << 20) ^ self.z
-
-    def __add__(self, other):
-        return Point3D(self.x + other.x, self.y + other.y, self.z + other.z)
-
-    def __sub__(self, other):
-        return Point3D(self.x - other.x, self.y - other.y, self.z - other.z)
-
-    def __mul__(self, other):
-        return Point3D(self.x * other.x, self.y * other.y, self.z * other.z)
-
-    def __truediv__(self, other):
-        return Point3D(self.x / other.x, self.y / other.y, self.z / other.z)
-
-    def __floordiv__(self, other):
-        return Point3D(self.x // other.x, self.y // other.y, self.z // other.z)
-
-    def __mod__(self, other):
-        return Point3D(self.x % other.x, self.y % other.y, self.z % other.z)
-
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y and self.z == other.z
-
-    def __ne__(self, other):
-        return self.x != other.x or self.y != other.y or self.z != other.z
-
-    def __lt__(self, other):
-        return self.x < other.x and self.y < other.y and self.z < other.z
-
-    def __le__(self, other):
-        return self.x <= other.x and self.y <= other.y and self.z <= other.z
-
-    def __gt__(self, other):
-        return self.x > other.x and self.y > other.y and self.z > other.z
-
-    def __ge__(self, other):
-        return self.x >= other.x and self.y >= other.y and self.z >= other.z
+    def __getattr__(self, name):
+        if name in _SHORTHAND:
+            i = _SHORTHAND.index(name)
+            if i < len(self.coords):
+                return self.coords[i]
+        raise AttributeError(name)
 
     def __str__(self):
-        return f"({self.x}, {self.y}, {self.z})"
+        return f"{self.coords}"
 
     def __repr__(self):
-        return f"Point3D({self.x}, {self.y}, {self.z})"
+        return f"PointN{self.coords}"
 
 
-def manhattan_distance(a: Point, b: Point) -> int:
-    return abs(a.x - b.x) + abs(a.y - b.y)
+def manhattan_distance(a: Point, b: Point):
+    return sum(abs(x - y) for x, y in zip(a.coords, b.coords))
 
 
-def euclidean_distance(a: Point, b: Point) -> float:
-    return ((a.x - b.x) ** 2 + (a.y - b.y) ** 2) ** 0.5
+def euclidean_distance(a: Point, b: Point):
+    return sum((x - y) * (x - y) for x, y in zip(a.coords, b.coords)) ** 0.5
 
 
-def chebyshev_distance(a: Point, b: Point) -> int:
-    return max(abs(a.x - b.x), abs(a.y - b.y))
-
-
-def manhattan_distance3D(a: Point3D, b: Point3D) -> int:
-    return abs(a.x - b.x) + abs(a.y - b.y) + abs(a.z - b.z)
-
-
-def euclidean_distance3D(a: Point3D, b: Point3D) -> float:
-    return ((a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2) ** 0.5
-
-
-def chebyshev_distance3D(a: Point3D, b: Point3D) -> int:
-    return max(abs(a.x - b.x), abs(a.y - b.y), abs(a.z - b.z))
+def chebyshev_distance(a: Point, b: Point):
+    return max(abs(x - y) for x, y in zip(a.coords, b.coords))
