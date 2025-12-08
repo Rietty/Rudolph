@@ -1,9 +1,7 @@
-from typing import Generic, Iterable, TypeVar
-
-T = TypeVar("T")  # element type
+from typing import Iterable
 
 
-class DSU(Generic[T]):
+class DSU[T]:
     def __init__(self, elements: Iterable[T]):
         self.p: dict[T, T] = {v: v for v in elements}
         self.s: dict[T, int] = {v: 1 for v in elements}
