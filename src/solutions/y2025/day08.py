@@ -1,16 +1,16 @@
 from heapq import nsmallest
 from itertools import combinations
 
-from library.geometry import Point3D, euclidean_distance3D
+from library.geometry import Point, euclidean_distance
 from library.tree import DSU
 from utils.decorators import benchmark
 
 
 @benchmark
-def part_a(data: list[Point3D]) -> int:
+def part_a(data: list[Point]) -> int:
     max_unions = 1000 if len(data) > 20 else 10
 
-    ds = [(euclidean_distance3D(a, b), a, b) for a, b in combinations(data, 2)]
+    ds = [(euclidean_distance(a, b), a, b) for a, b in combinations(data, 2)]
     smallest_ds = nsmallest(max_unions, ds, key=lambda x: x[0])
 
     dsu = DSU(data)
@@ -24,23 +24,25 @@ def part_a(data: list[Point3D]) -> int:
 
 
 @benchmark
-def part_b(data: list[Point3D]) -> int:
+def part_b(data: list[Point]) -> int:
     max_size = 1000 if len(data) > 20 else 10
 
-    ds = [(euclidean_distance3D(a, b), a, b) for a, b in combinations(data, 2)]
+    ds = [(euclidean_distance(a, b), a, b) for a, b in combinations(data, 2)]
     ds.sort(key=lambda x: x[0])
 
     u = DSU(data)
 
-    for dt, a, b in ds:
+    for _, a, b in ds:
         u.union(a, b)
         if u.s[u.find(data[0])] >= max_size:
             return a.x * b.x
 
 
 @benchmark
-def parse(data: str) -> list[Point3D]:
-    return [Point3D(*map(int, line.split(","))) for line in data.splitlines() if line]
+def parse(data: str) -> list[Point]:
+    return [
+        Point(tuple(map(int, line.split(",")))) for line in data.splitlines() if line
+    ]
 
 
 test_data_a = """162,817,812
