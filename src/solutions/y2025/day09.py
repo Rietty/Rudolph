@@ -17,9 +17,9 @@ def area_within_bounding_box(
     x_min, x_max = min(a.x, b.x), max(a.x, b.x)
     y_min, y_max = min(a.y, b.y), max(a.y, b.y)
 
-    subset = box(x_min, y_min, x_max, y_max)
+    region = box(x_min, y_min, x_max, y_max)
 
-    if subset.within(poly):
+    if region.within(poly):
         return (fabs(b.x - a.x) + 1) * (fabs(b.y - a.y) + 1)
 
     return 0
