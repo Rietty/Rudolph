@@ -33,14 +33,12 @@ def part_a(data: list[Point]) -> int:
         for j in range(i + 1, len(data)):
             x2, y2 = data[j].x, data[j].y
             a = (abs(x2 - x1) + 1) * (abs(y2 - y1) + 1)
-            if a > best:
-                best = a
+            best = max(best, a)
     return best
 
 
 @benchmark
 def part_b(data: list[Point]) -> int:
-    # Polygons will consist of all points in the list, it's basiclly a convex shape.
     poly = Polygon([(c.x, c.y) for c in data])
 
     pairs = [
