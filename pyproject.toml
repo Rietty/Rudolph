@@ -22,7 +22,8 @@ dependencies = [
     "pre-commit",
     "python-dotenv",
     "intervaltree",
-    "numba"
+    "numba",
+    "shapely"
 ]
 
 [project.optional-dependencies]
