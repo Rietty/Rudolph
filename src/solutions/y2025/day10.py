@@ -1,5 +1,3 @@
-import re
-
 import cvxpy as cp
 import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
@@ -73,20 +71,12 @@ def part_b(data: Machines) -> int:
 @benchmark
 def parse(data: str) -> Machines:
     machines = []
+
     for line in data.splitlines():
-        line = line.strip()
-
-        i_m = re.search(r"\[(.*?)\]", line)
-
-        i = [1 if c == "#" else 0 for c in i_m[1]]
-
-        b = [
-            [int(x) for x in b_m[1].strip().split(",") if x]
-            for b_m in re.finditer(r"\((.*?)\)", line)
-        ]
-
-        j_m = re.search(r"\{(.*?)\}", line)
-        j = [int(p) for p in j_m[1].split(",") if p.strip()]
+        parts = line.split()
+        i = [*parts[0][1:-1]]
+        b = [[int(x) for x in part[1:-1].split(",")] for part in parts[1:-1]]
+        j = [int(x) for x in parts[-1][1:-1].split(",")]
 
         machines.append({"i": i, "b": b, "j": j})
 
