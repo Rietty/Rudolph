@@ -1,5 +1,6 @@
 import re
 
+import cvxpy as cp
 import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
 
@@ -9,63 +10,23 @@ type Machine = dict[str, list]
 type Machines = list[Machine]
 
 
-def configure_lights(indicator, buttons):
+def configure_lights_cvxpy(indicator, buttons):
     n, m = len(indicator), len(buttons)
-    A = np.zeros((n, m), dtype=bool)
-    target_state = np.array([i & 1 for i in indicator], dtype=bool)
+    A = np.zeros((n, m), dtype=int)
+    b = np.array([i & 1 for i in indicator], dtype=int)
 
-    for btn_index, btn in enumerate(buttons):
-        A[list(btn), btn_index] = True
+    for j, btn in enumerate(buttons):
+        A[list(btn), j] = 1
 
-    pivot_columns, row = [], 0
+    x = cp.Variable(m, boolean=True)
+    y = cp.Variable(n, integer=True)
 
-    for col in range(m):
-        pivot_row = next((i for i in range(row, n) if A[i, col]), None)
-        if pivot_row is None:
-            continue
+    constraints = [A[i] @ x - 2 * y[i] == b[i] for i in range(n)]
 
-        if pivot_row != row:
-            A[[row, pivot_row]], target_state[[row, pivot_row]] = (
-                A[[pivot_row, row]],
-                target_state[[pivot_row, row]],
-            )
+    prob = cp.Problem(cp.Minimize(cp.sum(x)), constraints)
+    prob.solve(solver=cp.GLPK_MI)
 
-        pivot_columns.append(col)
-
-        mask = A[:, col] & (np.arange(n) != row)
-        A[mask] ^= A[row]
-        target_state[mask] ^= target_state[row]
-
-        row += 1
-        if row == n:
-            break
-
-    if target_state[row:].any():
-        return None
-
-    solution = np.zeros(m, dtype=bool)
-    solution[pivot_columns] = target_state[: len(pivot_columns)]
-
-    free_columns = [c for c in range(m) if c not in pivot_columns]
-
-    if len(free_columns) > 24:
-        return int(solution.sum())
-
-    basis_vectors = [np.zeros(m, dtype=bool) for _ in free_columns]
-
-    for i, f_col in enumerate(free_columns):
-        basis_vectors[i][f_col] = True
-        basis_vectors[i][pivot_columns] = A[: len(pivot_columns), f_col]
-
-    min_presses = solution.sum()
-    for mask in range(1, 1 << len(free_columns)):
-        candidate = solution.copy()
-        for i in range(len(free_columns)):
-            if mask >> i & 1:
-                candidate ^= basis_vectors[i]
-        min_presses = min(min_presses, candidate.sum())
-
-    return int(min_presses)
+    return int(np.round(x.value).sum())
 
 
 def specify_joltages(buttons: list[int], target: list[int]):
@@ -95,7 +56,7 @@ def specify_joltages(buttons: list[int], target: list[int]):
 def part_a(data: Machines) -> int:
     total = 0
     for _, m in enumerate(data, 1):
-        if (w := configure_lights(m["i"], m["b"])) is not None:
+        if (w := configure_lights_cvxpy(m["i"], m["b"])) is not None:
             total += w
     return total
 
