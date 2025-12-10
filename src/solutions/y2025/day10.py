@@ -44,12 +44,13 @@ def specify_joltages(buttons: list[int], target: list[int]):
     bounds = Bounds(np.zeros(m), np.full(m, np.inf))
     constraints = LinearConstraint(A, np.array(target), np.array(target))
 
-    r = milp(c=cost, constraints=constraints, bounds=bounds, integrality=integrality)
-
-    if not r.success:
-        return None
-
-    return int(round(r.fun))
+    return int(
+        round(
+            milp(
+                c=cost, constraints=constraints, bounds=bounds, integrality=integrality
+            ).fun
+        )
+    )
 
 
 @benchmark
