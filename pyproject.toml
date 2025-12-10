@@ -25,6 +25,7 @@ dependencies = [
     "numba",
     "shapely",
     "scipy",
+    "cvxpy[glpk]"
 ]
 
 [project.optional-dependencies]
