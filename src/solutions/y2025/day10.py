@@ -23,8 +23,7 @@ def configure_lights(indicator, buttons):
 
     constraints = [A[i] @ x - 2 * y[i] == b[i] for i in range(n)]
 
-    prob = cp.Problem(cp.Minimize(cp.sum(x)), constraints)
-    prob.solve(solver=cp.GLPK_MI)
+    cp.Problem(cp.Minimize(cp.sum(x)), constraints).solve(solver=cp.GLPK_MI)
 
     return int(np.round(x.value).sum())
 
