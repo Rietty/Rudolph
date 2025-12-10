@@ -23,7 +23,8 @@ dependencies = [
     "python-dotenv",
     "intervaltree",
     "numba",
-    "shapely"
+    "shapely",
+    "scipy",
 ]
 
 [project.optional-dependencies]
