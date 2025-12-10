@@ -10,7 +10,7 @@ type Machine = dict[str, list]
 type Machines = list[Machine]
 
 
-def configure_lights_cvxpy(indicator, buttons):
+def configure_lights(indicator, buttons):
     n, m = len(indicator), len(buttons)
     A = np.zeros((n, m), dtype=int)
     b = np.array([i & 1 for i in indicator], dtype=int)
@@ -56,7 +56,7 @@ def specify_joltages(buttons: list[int], target: list[int]):
 def part_a(data: Machines) -> int:
     total = 0
     for _, m in enumerate(data, 1):
-        if (w := configure_lights_cvxpy(m["i"], m["b"])) is not None:
+        if (w := configure_lights(m["i"], m["b"])) is not None:
             total += w
     return total
 
