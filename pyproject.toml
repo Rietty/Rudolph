@@ -25,7 +25,8 @@ dependencies = [
     "numba",
     "shapely",
     "scipy",
-    "cvxpy[glpk]"
+    "cvxpy[glpk]",
+    "ortools"
 ]
 
 [project.optional-dependencies]
