@@ -20,7 +20,7 @@ def area_within_bounding_box(
     region = box(x_min, y_min, x_max, y_max)
 
     if region.within(poly):
-        return (fabs(b.x - a.x) + 1) * (fabs(b.y - a.y) + 1)
+        return int((fabs(b.x - a.x) + 1) * (fabs(b.y - a.y) + 1))
 
     return 0
 
