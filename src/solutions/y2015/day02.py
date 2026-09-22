@@ -20,7 +20,11 @@ def part_b(data: list[Present]) -> int:
 
 @benchmark
 def parse(data: str) -> list[Present]:
-    return [tuple(map(int, line.split("x"))) for line in data.splitlines() if line]
+    def to_present(line: str) -> Present:
+        length, width, height = map(int, line.split("x"))
+        return length, width, height
+
+    return [to_present(line) for line in data.splitlines() if line]
 
 
 test_data_a = """2x3x4

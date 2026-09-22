@@ -8,13 +8,15 @@ from library.grid import Grid
 
 
 def graph_from_grid[T](
-    grid: Grid,
+    grid: Grid[T],
     directed: bool = False,
     allowed: list[T] | None = None,
     blocked: list[T] | None = None,
-    function: Callable | None = None,
-) -> nx.Graph | nx.DiGraph:
-    graph = nx.DiGraph() if directed else nx.Graph()
+    function: Callable[[T, T], bool] | None = None,
+) -> nx.Graph[tuple[int, int]] | nx.DiGraph[tuple[int, int]]:
+    graph: nx.DiGraph[tuple[int, int]] | nx.Graph[tuple[int, int]] = (
+        nx.DiGraph() if directed else nx.Graph()
+    )
 
     for r in range(grid.width):
         for c in range(grid.height):

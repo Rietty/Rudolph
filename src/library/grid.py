@@ -29,7 +29,7 @@ class Grid[T]:
         Returns:
             list[tuple[int, int]]: List of coordinates of the neighbours of the cell.
         """
-        neighbours = []
+        neighbours: list[tuple[int, int]] = []
 
         for dr, dc in Cardinals:
             nr, nc = r + dr, c + dc
@@ -71,10 +71,10 @@ class Grid[T]:
         Returns:
             list[list[T]]: List of the values of the neighbours of the cell.
         """
-        rays = []
+        rays: list[list[tuple[int, int]]] = []
 
         for dr, dc in Cardinals:
-            ray = []
+            ray: list[tuple[int, int]] = []
             for i in range(1, scaling + 1):
                 nr, nc = r + dr * i, c + dc * i
                 if 0 <= nr < self.width and 0 <= nc < self.height:
@@ -122,10 +122,10 @@ class Grid[T]:
         Returns:
             list[list[T]]: List of the coordinates of the region.
         """
-        region = []
+        region: list[list[tuple[int, int]]] = []
         half_s = s // 2
         for i in range(r - half_s, r + half_s + 1):
-            row = []
+            row: list[tuple[int, int]] = []
             for j in range(c - half_s, c + half_s + 1):
                 if 0 <= i < self.height and 0 <= j < self.width:
                     row.append((i, j))  # Append coordinates
@@ -187,7 +187,7 @@ class Grid[T]:
         """
         self.grid[row] = value
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """String representation of the grid.
 
         Returns:

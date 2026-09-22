@@ -1,5 +1,6 @@
 import importlib
 import sys
+from typing import Literal, TypedDict, Unpack
 
 import cloup
 import dotenv
@@ -8,6 +9,15 @@ from loguru import logger as log
 from utils.solver import solve_problem, test_problem
 
 dotenv.load_dotenv()
+
+
+class MainKwargs(TypedDict):
+    year: int
+    day: int
+    part: Literal["a", "b"]
+    test: bool
+    file: str | None
+    submit: bool
 
 
 @cloup.command()
@@ -34,14 +44,14 @@ dotenv.load_dotenv()
     cloup.option("--file", "-f", type=str, default=None, help="Path to an input file."),
     constraint=cloup.constraints.mutually_exclusive,
 )
-def main(**kwargs):
+def main(**kwargs: Unpack[MainKwargs]) -> None:
     """Solve a specific Advent of Code problem."""
     try:
-        year = kwargs["year"]
-        day = kwargs["day"]
+        year: int = kwargs["year"]
+        day: int = kwargs["day"]
         part = kwargs["part"].lower()
 
-        if part not in ["a", "b"]:
+        if part != "a" and part != "b":
             raise ValueError("Part must be 'a' or 'b'.")
 
         day_formatted = f"day{day:02d}"  # Format day as day01, day02, etc.

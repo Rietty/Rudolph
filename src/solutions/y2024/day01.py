@@ -12,7 +12,7 @@ def part_a(data: list[list[int]]) -> int:
 @benchmark
 def part_b(data: list[list[int]]) -> int:
     left, right = data
-    c: Counter = Counter(right)
+    c: Counter[int] = Counter(right)
     return sum(num * c[num] for num in left)
 
 

@@ -1,15 +1,18 @@
 import cProfile
 import time
-from typing import Callable
+from typing import Callable, ParamSpec, TypeVar
 
 from loguru import logger as log
 
+P = ParamSpec("P")
+R = TypeVar("R")
+
 
 # Decorator to measure the time taken by a function to execute and log the results.
-def benchmark(func: Callable) -> Callable[..., int]:
+def benchmark(func: Callable[P, R]) -> Callable[P, R]:
     # Used to measure the time taken to execute via the perf_counter.
     # Returns result and logs the time taken to execute the function.
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         start_time = time.perf_counter()
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
@@ -32,9 +35,9 @@ def benchmark(func: Callable) -> Callable[..., int]:
 
 
 # Decorator to profile a given function.
-def profile(func):
+def profile(func: Callable[P, R]) -> Callable[P, R]:
     # Uses cProfile and dumps a file with the profiled information to view.
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         datafn = func.__name__ + ".profile"  # Name the data file sensibly
         prof = cProfile.Profile()
         retval = prof.runcall(func, *args, **kwargs)
