@@ -1,4 +1,5 @@
 # Common geometry functions and calculations for various problems.
+import math
 from dataclasses import dataclass
 from typing import Callable
 
@@ -79,7 +80,7 @@ def manhattan_distance(a: Point, b: Point) -> float:
 
 
 def euclidean_distance(a: Point, b: Point) -> float:
-    return sum((x - y) * (x - y) for x, y in zip(a.coords, b.coords)) ** 0.5
+    return math.dist(a.coords, b.coords)
 
 
 def chebyshev_distance(a: Point, b: Point) -> float:

@@ -1,14 +1,23 @@
+from typing import TypedDict
+
 import cvxpy as cp
 import numpy as np
+from cvxpy.atoms.affine.sum import sum as cp_sum
 from scipy.optimize import Bounds, LinearConstraint, milp
 
 from utils.decorators import benchmark
 
-type Machine = dict[str, list]
+
+class Machine(TypedDict):
+    i: list[int]
+    b: list[list[int]]
+    j: list[int]
+
+
 type Machines = list[Machine]
 
 
-def configure_lights(indicator, buttons):
+def configure_lights(indicator: list[int], buttons: list[list[int]]) -> int:
     n, m = len(indicator), len(buttons)
     A = np.zeros((n, m), dtype=int)
     b = np.array([i & 1 for i in indicator], dtype=int)
@@ -21,12 +30,13 @@ def configure_lights(indicator, buttons):
 
     constraints = [A[i] @ x - 2 * y[i] == b[i] for i in range(n)]
 
-    cp.Problem(cp.Minimize(cp.sum(x)), constraints).solve(solver=cp.GLPK_MI)
+    cp.Problem(cp.Minimize(cp_sum(x)), constraints).solve(solver=cp.GLPK_MI)
+    assert x.value is not None
 
     return int(np.round(x.value).sum())
 
 
-def specify_joltages(buttons: list[int], target: list[int]):
+def specify_joltages(buttons: list[list[int]], target: list[int]) -> int:
     n = len(target)
     m = len(buttons)
 
@@ -40,14 +50,9 @@ def specify_joltages(buttons: list[int], target: list[int]):
     integrality = np.ones(m, dtype=int)
     bounds = Bounds(np.zeros(m), np.full(m, np.inf))
     constraints = LinearConstraint(A, np.array(target), np.array(target))
-
-    return int(
-        round(
-            milp(
-                c=cost, constraints=constraints, bounds=bounds, integrality=integrality
-            ).fun
-        )
-    )
+    res = milp(c=cost, constraints=constraints, bounds=bounds, integrality=integrality)
+    assert res.fun is not None
+    return round(float(res.fun))
 
 
 @benchmark
@@ -70,11 +75,11 @@ def part_b(data: Machines) -> int:
 
 @benchmark
 def parse(data: str) -> Machines:
-    machines = []
+    machines: Machines = []
 
     for line in data.splitlines():
         parts = line.split()
-        i = [*parts[0][1:-1]]
+        i = [int(ch == "#") for ch in parts[0][1:-1]]
         b = [[int(x) for x in part[1:-1].split(",")] for part in parts[1:-1]]
         j = [int(x) for x in parts[-1][1:-1].split(",")]
 

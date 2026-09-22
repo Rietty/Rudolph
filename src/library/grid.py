@@ -1,5 +1,7 @@
 # Grid implementation that can be useful for various problems.
 
+from typing import Iterator
+
 from library.constants import Cardinals, Ordinals
 
 
@@ -13,8 +15,8 @@ class Grid[T]:
             grid (list[list[T]]): List of lists to create the grid from.
         """
         self.grid = grid
-        self.width = len(grid)
-        self.height = len(grid[0])
+        self.width = len(grid[0])
+        self.height = len(grid)
 
     def get_neighbours(
         self, r: int, c: int, diagonals: bool = False
@@ -33,13 +35,13 @@ class Grid[T]:
 
         for dr, dc in Cardinals:
             nr, nc = r + dr, c + dc
-            if 0 <= nr < self.width and 0 <= nc < self.height:
+            if 0 <= nc < self.width and 0 <= nr < self.height:
                 neighbours.append((nr, nc))
 
         if diagonals:
             for dr, dc in Ordinals:
                 nr, nc = r + dr, c + dc
-                if 0 <= nr < self.width and 0 <= nc < self.height:
+                if 0 <= nc < self.width and 0 <= nr < self.height:
                     neighbours.append((nr, nc))
 
         return neighbours
@@ -77,7 +79,7 @@ class Grid[T]:
             ray: list[tuple[int, int]] = []
             for i in range(1, scaling + 1):
                 nr, nc = r + dr * i, c + dc * i
-                if 0 <= nr < self.width and 0 <= nc < self.height:
+                if 0 <= nc < self.width and 0 <= nr < self.height:
                     ray.append((nr, nc))
             rays.append(ray)
 
@@ -86,7 +88,7 @@ class Grid[T]:
                 ray = []
                 for i in range(1, scaling + 1):
                     nr, nc = r + dr * i, c + dc * i
-                    if 0 <= nr < self.width and 0 <= nc < self.height:
+                    if 0 <= nc < self.width and 0 <= nr < self.height:
                         ray.append((nr, nc))
                 rays.append(ray)
 
@@ -143,10 +145,7 @@ class Grid[T]:
         Returns:
             list[list[T]]: List of the values of the region.
         """
-        return [
-            [self.grid[i][j] for j in range(c - s // 2, c + s // 2 + 1)]
-            for i in range(r - s // 2, r + s // 2 + 1)
-        ]
+        return [[self.grid[i][j] for i, j in row] for row in self.get_region(r, c, s)]
 
     def find_value(self, value: T, skip: int = 0) -> tuple[int, int]:
         """Find the first occurrence of a value in the grid.
@@ -194,3 +193,11 @@ class Grid[T]:
             str: String representation of the grid.
         """
         return "\n".join(["".join([str(cell) for cell in row]) for row in self.grid])
+
+    def __iter__(self) -> Iterator[list[T]]:
+        """Iterator implementation for the grid.
+
+        Returns:
+            Iterator[list[T]]: An iterator that gives rows of the grid.
+        """
+        return iter(self.grid)

@@ -26,8 +26,8 @@ def area_within_bounding_box(
 
 
 @benchmark
-def part_a(data: list[Point]) -> int:
-    best = 0
+def part_a(data: list[Point]) -> float:
+    best: float = 0
     for i in range(len(data)):
         x1, y1 = data[i].x, data[i].y
         for j in range(i + 1, len(data)):

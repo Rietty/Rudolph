@@ -18,7 +18,7 @@ class Robot:
     position: Position
     velocity: Velocity
 
-    def tick(self):
+    def tick(self) -> None:
         x, y = self.position
         x += self.velocity[0]
         y += self.velocity[1]

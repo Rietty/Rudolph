@@ -1,7 +1,7 @@
 from utils.decorators import benchmark
 
 
-def is_repeated(n: int, exact_twice=False) -> bool:
+def is_repeated(n: int, exact_twice: bool = False) -> bool:
     s = str(n)
     if exact_twice:
         return len(s) % 2 == 0 and s == s[:2] * (len(s) // 2)
@@ -24,7 +24,7 @@ def part_b(data: list[tuple[int, int]]) -> int:
 
 
 @benchmark
-def parse(data: str) -> list[tuple[int, int]]:
+def parse(data: str) -> list[tuple[int, ...]]:
     return [tuple(map(int, seg.split("-"))) for seg in data.split(",")]
 
 

@@ -1,6 +1,6 @@
 import importlib
 import sys
-from typing import Literal, TypedDict, Unpack
+from typing import Literal, TypedDict, Unpack, cast, get_args
 
 import cloup
 import dotenv
@@ -18,6 +18,15 @@ class MainKwargs(TypedDict):
     test: bool
     file: str | None
     submit: bool
+
+
+Part = Literal["a", "b"]
+
+
+def to_part(s: str) -> Part:
+    if s not in get_args(Part):
+        raise ValueError(f"part must be one of {get_args(Part)}, got {s!r}")
+    return cast(Part, s)
 
 
 @cloup.command()
@@ -73,10 +82,11 @@ def main(**kwargs: Unpack[MainKwargs]) -> None:
             )
         else:
             log.info(f"Solving Day {day}, {year}, Part {part.upper()}...")
+            cast(Literal["a", "b"], part)
             solve_problem(
                 year=year,
                 day=day,
-                part=part,
+                part=to_part(part),
                 publish=kwargs["submit"],
                 parse=module.parse,
                 part_a=module.part_a,

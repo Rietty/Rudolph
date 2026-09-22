@@ -11,7 +11,7 @@ type Ingredients = list[int]
 @benchmark
 def part_a(data: tuple[Ranges, Ingredients]) -> int:
     ranges, ingredients = data
-    return sum(1 for i in ingredients if ranges[i])
+    return sum(1 for i in ingredients if ranges.overlaps_point(i))
 
 
 @benchmark
@@ -30,7 +30,7 @@ def parse(data: str) -> tuple[IntervalTree, Ingredients]:
         if not line.strip():
             continue
         begin, end = map(int, line.split("-"))
-        ranges[begin : end + 1] = (begin, end + 1)
+        ranges.addi(begin, end + 1)
 
     ingredients = [int(v) for v in i.splitlines() if v.strip()]
 

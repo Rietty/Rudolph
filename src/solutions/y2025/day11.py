@@ -6,7 +6,9 @@ from utils.decorators import benchmark
 
 
 @lru_cache(maxsize=None)
-def dfs(data: nx.DiGraph, src: str, target: str, first: str, second: str):
+def dfs(
+    data: nx.DiGraph[str], src: str, target: str, first: str, second: str
+) -> tuple[int, int, int, int]:
     if src == target:
         return (1, 0, 0, 0)
 
@@ -23,24 +25,24 @@ def dfs(data: nx.DiGraph, src: str, target: str, first: str, second: str):
 
 
 @benchmark
-def part_a(data: nx.DiGraph) -> int:
+def part_a(data: nx.DiGraph[str]) -> int:
     return sum(1 for _ in nx.all_simple_paths(data, source="you", target="out"))
 
 
 @benchmark
-def part_b(data: nx.DiGraph) -> int:
+def part_b(data: nx.DiGraph[str]) -> int:
     return dfs(data, "svr", "out", "dac", "fft")[3]
 
 
 @benchmark
-def parse(data: str) -> nx.DiGraph:
-    G = nx.DiGraph()
+def parse(data: str) -> nx.DiGraph[str]:
+    G: nx.DiGraph[str] = nx.DiGraph()
     for line in data.strip().splitlines():
-        node, neighbors = line.split(":")
+        node, rest = line.split(":")
         node = node.strip()
-        neighbors = neighbors.strip().split()
-        for neighbor in neighbors:
+        for neighbor in rest.split():
             G.add_edge(node, neighbor)
+
     return G
 
 

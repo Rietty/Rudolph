@@ -24,7 +24,7 @@ def part_a(data: list[Point]) -> int:
 
 
 @benchmark
-def part_b(data: list[Point]) -> int:
+def part_b(data: list[Point]) -> float | None:
     max_size = 1000 if len(data) > 20 else 10
 
     ds = [(euclidean_distance(a, b), a, b) for a, b in combinations(data, 2)]
@@ -36,6 +36,8 @@ def part_b(data: list[Point]) -> int:
         u.union(a, b)
         if u.s[u.find(data[0])] >= max_size:
             return a.x * b.x
+
+    return None
 
 
 @benchmark

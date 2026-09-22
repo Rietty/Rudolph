@@ -5,7 +5,7 @@ from utils.decorators import benchmark
 
 
 @benchmark
-def part_a(data: Grid) -> int:
+def part_a(data: Grid[str]) -> int:
     n = data.width
     m = data.height
     sum = 0
@@ -20,7 +20,7 @@ def part_a(data: Grid) -> int:
 
 
 @benchmark
-def part_b(data: Grid) -> int:
+def part_b(data: Grid[str]) -> int:
     n = data.width
     m = data.height
     total_sum = 0
@@ -28,7 +28,7 @@ def part_b(data: Grid) -> int:
     while True:
         previous_sum = total_sum
 
-        rolls_to_remove = []
+        rolls_to_remove: list[tuple[int, int]] = []
         for r in range(n):
             for c in range(m):
                 if data[r][c] == ".":
@@ -44,16 +44,14 @@ def part_b(data: Grid) -> int:
 
         # Remove all the rolls
         for a, b in rolls_to_remove:
-            current_string = data[a]
-            new_string = current_string[:b] + "." + current_string[b + 1 :]
-            data[a] = new_string
+            data[a][b] = "."
 
     return total_sum
 
 
 @benchmark
-def parse(data: str) -> Grid:
-    return Grid([c for c in data.splitlines()])
+def parse(data: str) -> Grid[str]:
+    return Grid([list(c) for c in data.splitlines()])
 
 
 test_data_a = """..@@.@@@@.

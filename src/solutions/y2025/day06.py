@@ -3,7 +3,7 @@ from functools import reduce
 
 from utils.decorators import benchmark
 
-type Worksheet = tuple[list[list[str]]]
+type Worksheet = list[list[str]]
 
 
 def do_homework(worksheet: Worksheet) -> int:
@@ -29,7 +29,7 @@ def parse(data: str) -> tuple[Worksheet, Worksheet]:
     width = max(len(r) for r in rows)
     rows = [r.ljust(width) for r in rows]
 
-    blocks = []
+    blocks: Worksheet = []
 
     c = 0
     while c < width:
@@ -43,7 +43,7 @@ def parse(data: str) -> tuple[Worksheet, Worksheet]:
 
     fake = [[x.strip() for x in b] for b in blocks]
 
-    real = []
+    real: Worksheet = []
     for b in blocks:
         op = b[-1].strip()
         cols = zip(*b[:-1])

@@ -1,8 +1,19 @@
+from typing import TypedDict
+
 from utils.decorators import benchmark
 
 
+class Region(TypedDict):
+    R: int
+    C: int
+    c: list[int]
+
+
+type Puzzle = tuple[dict[int, int], list[Region]]
+
+
 @benchmark
-def part_a(data: tuple[dict, list]) -> int:
+def part_a(data: Puzzle) -> int:
     shape_tiles, regions = data
     total_fit = 0
 
@@ -17,18 +28,18 @@ def part_a(data: tuple[dict, list]) -> int:
 
 
 @benchmark
-def part_b(data: tuple[dict, list]) -> int:
+def part_b(data: Puzzle) -> int:
     return 1
 
 
 @benchmark
-def parse(data: str) -> tuple[dict, list]:
+def parse(data: str) -> Puzzle:
     lines = [line.rstrip() for line in data.splitlines() if line.strip()]
-    counts = {}
-    regions = []
+    counts: dict[int, int] = {}
+    regions: list[Region] = []
 
-    current_shape = None
-    shape_rows = []
+    current_shape: int | None = None
+    shape_rows: list[str] = []
 
     for ln in lines:
         if ln.endswith(":") and "x" not in ln:
@@ -41,8 +52,7 @@ def parse(data: str) -> tuple[dict, list]:
         elif "x" in ln and ":" in ln:
             size, cs = ln.split(":")
             R, C = map(int, size.split("x"))
-            cs = list(map(int, cs.strip().split()))
-            regions.append({"R": R, "C": C, "c": cs})
+            regions.append({"R": R, "C": C, "c": [int(v) for v in cs.split()]})
         else:
             shape_rows.append(ln)
 

@@ -7,7 +7,7 @@ def max_joltage(input: int, n: int) -> int:
     if n >= L:
         return input
     remove = L - n
-    st = []
+    st: list[str] = []
     for d in s:
         while remove and st and st[-1] < d:
             st.pop()
