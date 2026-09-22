@@ -42,7 +42,7 @@ def advance(
 
     if target_cell == BOX:
         # Check the sequence of boxes
-        box_positions = []
+        box_positions: list[tuple[int, int]] = []
         bx, by = target_x, target_y
         while 0 <= bx < len(grid[0]) and 0 <= by < len(grid) and grid[by][bx] == BOX:
             box_positions.append((bx, by))
@@ -71,9 +71,9 @@ def advance(
 
 
 def scale_up_map(grid: Grid) -> Grid:
-    new_grid = []
+    new_grid: list[list[str]] = []
     for row in grid:
-        scaled_row = []
+        scaled_row: list[str] = []
         for cell in row:
             if cell == WALL:
                 scaled_row.extend([WALL, WALL])
@@ -90,12 +90,19 @@ def scale_up_map(grid: Grid) -> Grid:
 @benchmark
 def part_a(data: tuple[Grid, list[str]]) -> int:
     grid, directions = data
+    robot_pos: tuple[int, int] | None = None
 
     for y, row in enumerate(grid):
         for x, cell in enumerate(row):
             if cell == ROBOT:
                 robot_pos = (x, y)
                 break
+
+        if robot_pos is not None:
+            break
+
+    if robot_pos is None:
+        raise ValueError("No robot found in grid")
 
     for direction in directions:
         grid, robot_pos = advance(grid, robot_pos, direction)
@@ -118,8 +125,8 @@ def part_b(data: tuple[Grid, list[str]]) -> int:
 @benchmark
 def parse(data: str) -> tuple[Grid, list[str]]:
     # Parse the data in test_data_a into a grid (list of lists) and a list of directions.
-    grid = []
-    directions = []
+    grid: list[list[str]] = []
+    directions: list[str] = []
     for line in data.splitlines():
         if line.startswith("#"):
             grid.append(list(line))

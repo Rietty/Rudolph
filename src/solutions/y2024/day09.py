@@ -107,7 +107,7 @@ def part_b(data: list[Block]) -> int:
 
 @benchmark
 def parse(data: str) -> list[Block]:
-    blocks = []
+    blocks: list[Block] = []
     is_file = True
     block_id = 0
 

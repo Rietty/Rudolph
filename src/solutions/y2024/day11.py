@@ -16,7 +16,7 @@ def split_number(n: int, d: int) -> tuple[int, int]:
     return left, right
 
 
-def apply_rules[T](data: dict) -> defaultdict[int, int]:
+def apply_rules[T](data: dict[int, int]) -> defaultdict[int, int]:
     new_stones: defaultdict[int, int] = defaultdict(lambda: 0)
 
     for s, f in data.items():
@@ -33,19 +33,19 @@ def apply_rules[T](data: dict) -> defaultdict[int, int]:
 
 
 @benchmark
-def part_a(data: dict) -> int:
+def part_a(data: dict[int, int]) -> int:
     data = reduce(lambda data, _: apply_rules(data), range(25), data)
     return sum(data.values())
 
 
 @benchmark
-def part_b(data: dict) -> int:
+def part_b(data: dict[int, int]) -> int:
     data = reduce(lambda data, _: apply_rules(data), range(75), data)
     return sum(data.values())
 
 
 @benchmark
-def parse(data: str) -> dict:
+def parse(data: str) -> dict[int, int]:
     return {int(item): 1 for item in data.split()}
 
 

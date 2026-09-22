@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 from library.grid import Grid
 from utils.decorators import benchmark
@@ -9,7 +10,7 @@ class Schematic(Enum):
     Lock = 1
 
 
-def key_or_lock(grid: Grid) -> Schematic | None:
+def key_or_lock(grid: Grid[str]) -> Schematic | None:
     if all(cell == "#" for cell in grid[0]):
         return Schematic.Lock
     if all(cell == "#" for cell in grid[-1]):
@@ -17,7 +18,7 @@ def key_or_lock(grid: Grid) -> Schematic | None:
     return None
 
 
-def get_columns(grid: Grid[any]) -> list[str]:
+def get_columns(grid: Grid[Any]) -> list[str]:
     return ["".join(column) for column in zip(*grid)]
 
 
@@ -26,7 +27,7 @@ def get_scores(columns: list[str]) -> list[int]:
 
 
 @benchmark
-def part_a(data: list[Grid]) -> int:
+def part_a(data: list[Grid[str]]) -> int:
     keys = [d for d in data if key_or_lock(d) == Schematic.Key]
     locks = [d for d in data if key_or_lock(d) == Schematic.Lock]
 
@@ -44,13 +45,12 @@ def part_a(data: list[Grid]) -> int:
 
 
 @benchmark
-def part_b(data: list[Grid]) -> int:
-    # Ta-da! No part B!
-    return 0
+def part_b(data: list[Grid[str]]) -> int:
+    return 0  # Ta-da! No part B!
 
 
 @benchmark
-def parse(data: str) -> list[Grid]:
+def parse(data: str) -> list[Grid[str]]:
     return [
         Grid([list(line) for line in grid.splitlines()]) for grid in data.split("\n\n")
     ]

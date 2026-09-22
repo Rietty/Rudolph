@@ -28,6 +28,8 @@ def part_a(data: tuple[dict[str, int], deque[tuple[str, str, str, str]]]) -> int
                 wires[w3] = wires[w1] | wires[w2]
             case Operation.XOR.value:
                 wires[w3] = wires[w1] ^ wires[w2]
+            case _:
+                pass
 
     return int(
         "".join(

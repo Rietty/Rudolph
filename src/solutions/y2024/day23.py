@@ -4,7 +4,7 @@ from utils.decorators import benchmark
 
 
 @benchmark
-def part_a(data: nx.Graph) -> int:
+def part_a(data: nx.Graph[str]) -> int:
     return len(
         [
             cycle
@@ -15,15 +15,15 @@ def part_a(data: nx.Graph) -> int:
 
 
 @benchmark
-def part_b(data: nx.Graph) -> str:
+def part_b(data: nx.Graph[str]) -> str:
     cliques: list[list[str]] = list(nx.find_cliques(data))
     largest_clique = max(cliques, key=len)
     return ",".join(sorted(largest_clique))
 
 
 @benchmark
-def parse(data: str) -> nx.Graph:
-    graph = nx.Graph()
+def parse(data: str) -> nx.Graph[str]:
+    graph: nx.Graph[str] = nx.Graph()
     for line in data.splitlines():
         u, v = line.split("-")
         graph.add_edge(u, v)

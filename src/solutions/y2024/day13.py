@@ -7,7 +7,7 @@ type Machine = tuple[int, int, int, int, int, int]
 OFFSET: typing.Final[int] = 10_000_000_000_000
 
 
-def solve(machine: Machine, limit: int) -> int:
+def solve(machine: Machine, limit: int) -> int | None:
     ax, ay, bx, by, px, py = machine
 
     x = (ax * py - ay * px) / (ax * by - ay * bx)
@@ -16,7 +16,7 @@ def solve(machine: Machine, limit: int) -> int:
     if x.is_integer() and y.is_integer() and 0 <= x <= limit and 0 <= y <= limit:
         return int(x) + 3 * int(y)
 
-    return 0
+    return None
 
 
 @benchmark

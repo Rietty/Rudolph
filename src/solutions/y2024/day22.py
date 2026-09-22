@@ -15,7 +15,7 @@ def evolve(s: int) -> int:
 
 
 def prices(s: int) -> list[int]:
-    digits = []
+    digits: list[int] = []
     for _ in range(Iterations):
         digits.append(s % 10)
         s = evolve(s)
@@ -63,7 +63,7 @@ def part_a(data: list[int]) -> int:
 
 @benchmark
 def part_b(data: list[int]) -> int:
-    def compute_price_map(s):
+    def compute_price_map(s: int) -> tuple[int, dict[tuple[int, int, int, int], int]]:
         return s, map_changes_to_prices(s)
 
     with ThreadPoolExecutor() as executor:

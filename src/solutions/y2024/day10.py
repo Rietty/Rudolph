@@ -6,7 +6,7 @@ DIRECTIONS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
 
 @benchmark
-def part_a(data: nx.DiGraph) -> int:
+def part_a(data: nx.DiGraph[tuple[int, int]]) -> int:
     start_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 0]
     end_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 9]
 
@@ -20,11 +20,12 @@ def part_a(data: nx.DiGraph) -> int:
 
 
 @benchmark
-def part_b(data: nx.DiGraph) -> int:
+def part_b(data: nx.DiGraph[tuple[int, int]]) -> int:
     start_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 0]
     end_nodes = [node for node in data.nodes if data.nodes[node]["weight"] == 9]
 
-    paths = []
+    paths: list[list[tuple[int, int]]] = []
+
     for start in start_nodes:
         for end in end_nodes:
             paths.extend(nx.all_simple_paths(data, start, end))
@@ -33,8 +34,8 @@ def part_b(data: nx.DiGraph) -> int:
 
 
 @benchmark
-def parse(data: str) -> nx.DiGraph:
-    graph = nx.DiGraph()
+def parse(data: str) -> nx.DiGraph[tuple[int, int]]:
+    graph: nx.DiGraph[tuple[int, int]] = nx.DiGraph()
     grid = [list(map(int, line)) for line in data.splitlines()]
 
     for x in range(len(grid)):

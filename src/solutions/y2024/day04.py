@@ -3,7 +3,7 @@ from utils.decorators import benchmark
 
 
 @benchmark
-def part_a(data: Grid) -> int:
+def part_a(data: Grid[str]) -> int:
     count = 0
 
     for r in range(data.width):
@@ -18,7 +18,7 @@ def part_a(data: Grid) -> int:
 
 
 @benchmark
-def part_b(data: Grid) -> int:
+def part_b(data: Grid[str]) -> int:
     count = 0
     opposites = {"S": "M", "M": "S"}
 
@@ -41,7 +41,7 @@ def part_b(data: Grid) -> int:
 
 
 @benchmark
-def parse(data: str) -> Grid:
+def parse(data: str) -> Grid[str]:
     return Grid([list(line) for line in data.splitlines()])
 
 

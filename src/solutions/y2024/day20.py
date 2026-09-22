@@ -18,7 +18,7 @@ def get_possible_cheats(size: int) -> list[tuple[int, int, int]]:
 
 # Count the number of good cheats.
 def count_good_cheats(
-    graph: nx.Graph,
+    graph: nx.Graph[tuple[int, int]],
     start: tuple[int, int],
     end: tuple[int, int],
     max_cheat_distance: int,
@@ -46,19 +46,25 @@ def count_good_cheats(
 
 
 @benchmark
-def part_a(data: tuple[nx.Graph, tuple[int, int], tuple[int, int]]) -> int:
+def part_a(
+    data: tuple[nx.Graph[tuple[int, int]], tuple[int, int], tuple[int, int]],
+) -> int:
     graph, start, end = data
     return count_good_cheats(graph, start, end, 2)
 
 
 @benchmark
-def part_b(data: tuple[nx.Graph, tuple[int, int], tuple[int, int]]) -> int:
+def part_b(
+    data: tuple[nx.Graph[tuple[int, int]], tuple[int, int], tuple[int, int]],
+) -> int:
     graph, start, end = data
     return count_good_cheats(graph, start, end, 20)
 
 
 @benchmark
-def parse(data: str) -> tuple[nx.Graph, tuple[int, int], tuple[int, int]]:
+def parse(
+    data: str,
+) -> tuple[nx.Graph[tuple[int, int]], tuple[int, int], tuple[int, int]]:
     grid = Grid([list(line) for line in data.splitlines()])
     graph = graph_from_grid(
         grid,

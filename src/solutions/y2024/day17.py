@@ -19,7 +19,7 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
     a, b, c = registers
     halt = False
     ip = 0
-    res = []
+    res: list[int] = []
     jump = False
 
     while not halt:
@@ -59,6 +59,8 @@ def compute(registers: list[int], program: list[int]) -> list[int]:
                 b = math.trunc((a / (2**combo)))
             case Instruction.CDV.value:
                 c = math.trunc((a / (2**combo)))
+            case _:
+                pass
 
         if not jump:
             ip += 2

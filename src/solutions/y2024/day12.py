@@ -55,7 +55,7 @@ def get_regions(data: list[list[str]]) -> dict[str, Regions]:
 
     def flood_fill(r: int, c: int, char: str) -> Region:
         stack = [(r, c)]
-        region = []
+        region: Region = []
         while stack:
             x, y = stack.pop()
             if 0 <= x < n and 0 <= y < m and not visited[x][y] and data[x][y] == char:
@@ -64,7 +64,7 @@ def get_regions(data: list[list[str]]) -> dict[str, Regions]:
                 stack.extend([(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)])
         return region
 
-    regions = defaultdict(list)
+    regions: defaultdict[str, Regions] = defaultdict(list)
 
     for i in range(n):
         for j in range(m):

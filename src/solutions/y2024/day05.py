@@ -3,12 +3,12 @@ import networkx as nx
 from utils.decorators import benchmark
 
 
-def path_exists(graph: nx.DiGraph, path: list[int]) -> bool:
+def path_exists(graph: nx.DiGraph[int], path: list[int]) -> bool:
     return all(graph.has_edge(path[i], path[i + 1]) for i in range(len(path) - 1))
 
 
 @benchmark
-def part_a(data: tuple[nx.DiGraph, list[list[int]]]) -> int:
+def part_a(data: tuple[nx.DiGraph[int], list[list[int]]]) -> int:
     graph, updates = data
 
     return sum(
@@ -17,9 +17,9 @@ def part_a(data: tuple[nx.DiGraph, list[list[int]]]) -> int:
 
 
 @benchmark
-def part_b(data: tuple[nx.DiGraph, list[list[int]]]) -> int:
+def part_b(data: tuple[nx.DiGraph[int], list[list[int]]]) -> int:
     graph, updates = data
-    fixed_incorrect = []
+    fixed_incorrect: list[list[int]] = []
 
     for update in updates:
         if not path_exists(graph, update):
@@ -30,17 +30,17 @@ def part_b(data: tuple[nx.DiGraph, list[list[int]]]) -> int:
 
 
 @benchmark
-def parse(data: str) -> tuple[nx.DiGraph, list[list[int]]]:
+def parse(data: str) -> tuple[nx.DiGraph[int], list[list[int]]]:
     r, u = data.split("\n\n")
 
-    rules: list[tuple[int, ...]] = [
-        tuple(map(int, rule.split("|"))) for rule in r.splitlines()
+    rules: list[tuple[int, int]] = [
+        (int(a), int(b)) for rule in r.splitlines() for a, b in [rule.split("|")]
     ]
     updates: list[list[int]] = [
         list(map(int, update.split(","))) for update in u.splitlines()
     ]
 
-    graph = nx.DiGraph()
+    graph: nx.DiGraph[int] = nx.DiGraph()
     graph.add_edges_from(rules)
 
     return (graph, updates)

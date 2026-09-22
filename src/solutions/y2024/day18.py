@@ -13,7 +13,7 @@ MY: typing.Final[int] = 70
 
 @benchmark
 def part_a(data: list[tuple[int, int]]) -> int:
-    graph = netx.Graph()
+    graph: netx.Graph[tuple[int, int]] = netx.Graph()
 
     for x in range(MX + 1):
         for y in range(MY + 1):
@@ -25,13 +25,13 @@ def part_a(data: list[tuple[int, int]]) -> int:
 
     graph.remove_nodes_from(data[:BYTES])
 
-    return netx.shortest_path_length(graph, (0, 0), (MX, MY))
+    return netx.shortest_path_length(graph, (0, 0), (MX, MY))  # type: ignore[reportUnknownMemberType]
 
 
 @benchmark
 def part_b(data: list[tuple[int, int]]) -> str:
     byte = 0
-    graph = netx.Graph()
+    graph: netx.Graph[tuple[int, int]] = netx.Graph()
 
     for x in range(MX + 1):
         for y in range(MY + 1):
@@ -44,7 +44,7 @@ def part_b(data: list[tuple[int, int]]) -> str:
     while True:
         graph.remove_node(data[byte])
         try:
-            netx.shortest_path_length(graph, (0, 0), (MX, MY))
+            netx.shortest_path_length(graph, (0, 0), (MX, MY))  # type: ignore[reportUnknownMemberType]
         except Exception:
             return ",".join(map(str, data[byte]))
         finally:

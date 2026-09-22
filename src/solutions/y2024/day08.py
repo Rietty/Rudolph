@@ -22,7 +22,7 @@ def generate_antinode_pair(
 def generate_antinode_line(
     a: Coordinates, b: Coordinates, n: int, m: int
 ) -> list[Coordinates]:
-    res = []
+    res: list[Coordinates] = []
     ax, ay = a
     bx, by = b
 
@@ -43,7 +43,7 @@ def generate_antinode_line(
 @benchmark
 def part_a(data: tuple[dict[str, list[Coordinates]], int, int]) -> int:
     antennas, n, m = data
-    antinodes = set()
+    antinodes: set[Coordinates] = set()
 
     for _, coords in antennas.items():
         for a, b in itertools.combinations(coords, 2):
@@ -58,7 +58,7 @@ def part_a(data: tuple[dict[str, list[Coordinates]], int, int]) -> int:
 @benchmark
 def part_b(data: tuple[dict[str, list[Coordinates]], int, int]) -> int:
     antennas, n, m = data
-    antinodes = set()
+    antinodes: set[Coordinates] = set()
 
     for _, coords in antennas.items():
         for a, b in itertools.combinations(coords, 2):

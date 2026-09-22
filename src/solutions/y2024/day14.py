@@ -70,7 +70,7 @@ def part_b(data: Robots) -> int:
 
 @benchmark
 def parse(data: str) -> Robots:
-    robots = []
+    robots: Robots = []
     for line in data.splitlines():
         parts = line.split()
         x1, y1 = map(int, parts[0][2:].split(","))
