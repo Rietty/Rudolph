@@ -1,7 +1,7 @@
 # Common geometry functions and calculations for various problems.
 import math
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, Iterator
 
 _SHORTHAND = "xyzwvutsrqponmlkjihgfedcba"  # 26 possible indices
 
@@ -73,6 +73,9 @@ class Point:
 
     def __repr__(self) -> str:
         return f"PointN{self.coords}"
+
+    def __iter__(self) -> Iterator[float]:
+        return iter(self.coords)
 
 
 def manhattan_distance(a: Point, b: Point) -> float:

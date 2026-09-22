@@ -15,7 +15,11 @@ def part_a(data: list[Present]) -> int:
 
 @benchmark
 def part_b(data: list[Present]) -> int:
-    return 0
+    return sum(
+        (length * width * height)
+        + 2 * min(length + width, length + height, width + height)
+        for length, width, height in data
+    )
 
 
 @benchmark
