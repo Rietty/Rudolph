@@ -2,7 +2,7 @@ import ast
 
 from utils.decorators import benchmark
 
-type Pair = tuple[str, str]  # (raw source text, parsed in-memory string)
+type Pair = tuple[str, str]
 
 
 @benchmark
