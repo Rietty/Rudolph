@@ -27,6 +27,7 @@ dependencies = [
     "scipy",
     "cvxpy[glpk]",
     "ortools",
+    "z3-solver"
 ]
 
 [project.optional-dependencies]
