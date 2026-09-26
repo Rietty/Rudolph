@@ -1,7 +1,6 @@
 from dataclasses import dataclass
-from typing import Any, cast
-
-from z3 import If, Int, Optimize, sat
+from math import prod
+from typing import Any, Iterator
 
 from utils.decorators import benchmark
 
@@ -20,35 +19,36 @@ PROPERTIES = ["capacity", "durability", "flavour", "texture"]
 TOTAL_TEASPOONS = 100
 
 
+def generate_amounts(n: int, remaining: int) -> Iterator[Any]:
+    if n == 1:
+        yield (remaining,)
+        return
+    for amount in range(remaining + 1):
+        for rest in generate_amounts(n - 1, remaining - amount):
+            yield (amount, *rest)
+
+
 def optimize(data: list[Ingredient], calorie_target: int | None) -> int:
-    n = len(data)
-    x = [Int(f"x_{i}") for i in range(n)]
-    opt = Optimize()
+    best = 0
 
-    opt.add(sum(x) == TOTAL_TEASPOONS)
-    for xi in x:
-        opt.add(xi >= 0)
+    for amounts in generate_amounts(len(data), TOTAL_TEASPOONS):
+        if calorie_target is not None:
+            total_calories = sum(ing.calories * amt for ing, amt in zip(data, amounts))
+            if total_calories != calorie_target:
+                continue
 
-    if calorie_target is not None:
-        total_calories = sum(ing.calories * xi for ing, xi in zip(data, x))
-        opt.add(total_calories == calorie_target)
+        properties = [
+            sum(getattr(ing, prop) * amt for ing, amt in zip(data, amounts))
+            for prop in PROPERTIES
+        ]
+        if any(p <= 0 for p in properties):
+            continue
 
-    property_values = []
-    for prop in PROPERTIES:
-        raw = sum(getattr(ing, prop) * xi for ing, xi in zip(data, x))
-        clamped = If(raw >= 0, raw, 0)
-        property_values.append(clamped)
+        score = prod(properties)
+        if score > best:
+            best = score
 
-    objective = property_values[0]
-    for val in property_values[1:]:
-        objective = objective * val
-
-    handle = opt.maximize(objective)
-
-    if opt.check() != sat:
-        raise ValueError("no feasible ingredient mix satisfies the constraints")
-
-    return int(cast(Any, handle.value()).as_long())
+    return best
 
 
 @benchmark
