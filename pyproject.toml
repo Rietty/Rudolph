@@ -22,6 +22,7 @@ dependencies = [
     "intervaltree",
     "shapely",
     "scipy",
+    "cvxopt>=1.3.3",
     "cvxpy[glpk]",
 ]
 
