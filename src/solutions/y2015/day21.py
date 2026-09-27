@@ -30,9 +30,6 @@ ITEM_SHOP = {
 
 
 def generate_loadouts(shop: dict[str, list[dict[str, Any]]]) -> Iterator[Any]:
-    """Yield stats for every legal loadout: exactly 1 weapon,
-    0-1 armor, 0-2 rings, no repeated items."""
-
     weapon_choices = shop["weapons"]
     armor_choices = [None, *shop["armor"]]
     ring_choices = list(
