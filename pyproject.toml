@@ -15,19 +15,14 @@ dependencies = [
     "networkx",
     "pandas",
     "numpy",
-    "click",
     "cloup",
-    "pyyaml",
     "loguru",
     "pre-commit",
     "python-dotenv",
     "intervaltree",
-    "numba",
     "shapely",
     "scipy",
     "cvxpy[glpk]",
-    "ortools",
-    "z3-solver"
 ]
 
 [project.optional-dependencies]
