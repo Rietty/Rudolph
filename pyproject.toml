@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Advent of Code Solutions!"
 authors = [{ name = "Juliette H. Lavoie" }]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 
 dependencies = [
     "advent-of-code-data",
@@ -42,14 +42,14 @@ dev = [
 
 [tool.ruff]
 line-length = 88
-target-version = "py313"
+target-version = "py314"
 extend-select = ["I"]
 
 [tool.isort]
 profile = "black"
 
 [tool.mypy]
-python_version = "3.13"
+python_version = "3.14"
 strict = true
 ignore_missing_imports = true
 untyped_calls_exclude = ["cvxpy"]
