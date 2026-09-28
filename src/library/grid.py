@@ -1,5 +1,6 @@
 # Grid implementation that can be useful for various problems.
 
+from collections.abc import Callable
 from typing import Iterator
 
 from library.constants import Cardinals, Ordinals
@@ -165,6 +166,82 @@ class Grid[T]:
                     skip -= 1
 
         return -1, -1  # Not found
+
+    def rotate_row(self, row: int, shift: int) -> None:
+        """Rotate a row horizontally with wraparound.
+
+        A positive shift moves values to the right, a negative shift
+        moves them to the left.
+
+        Args:
+            row (int): Index of the row to rotate.
+            shift (int): Number of positions to shift by.
+
+        Raises:
+            IndexError: If the row index is out of range.
+        """
+        if not 0 <= row < self.height:
+            raise IndexError(f"Row {row} out of range for height {self.height}")
+
+        shift %= self.width
+        if shift:
+            current = self.grid[row]
+            self.grid[row] = current[-shift:] + current[:-shift]
+
+    def rotate_column(self, col: int, shift: int) -> None:
+        """Rotate a column vertically with wraparound.
+
+        A positive shift moves values down, a negative shift moves them up.
+
+        Args:
+            col (int): Index of the column to rotate.
+            shift (int): Number of positions to shift by.
+
+        Raises:
+            IndexError: If the column index is out of range.
+        """
+        if not 0 <= col < self.width:
+            raise IndexError(f"Column {col} out of range for width {self.width}")
+
+        shift %= self.height
+        if shift:
+            values = [self.grid[r][col] for r in range(self.height)]
+            values = values[-shift:] + values[:-shift]
+            for r, value in enumerate(values):
+                self.grid[r][col] = value
+
+    def count(self, value: T) -> int:
+        """Count how many cells equal a given value.
+
+        Args:
+            value (T): The value to look for.
+
+        Returns:
+            int: Number of cells equal to value.
+        """
+        return sum(row.count(value) for row in self.grid)
+
+    def count_type(self, type_: type | tuple[type, ...]) -> int:
+        """Count how many cells are an instance of the given type(s).
+
+        Args:
+            type_ (type | tuple[type, ...]): Type or tuple of types to match.
+
+        Returns:
+            int: Number of cells that are instances of type_.
+        """
+        return sum(isinstance(cell, type_) for row in self.grid for cell in row)
+
+    def count_if(self, predicate: Callable[[T], bool]) -> int:
+        """Count how many cells satisfy a predicate.
+
+        Args:
+            predicate (Callable[[T], bool]): Function returning True for cells to count.
+
+        Returns:
+            int: Number of cells for which predicate returned True.
+        """
+        return sum(predicate(cell) for row in self.grid for cell in row)
 
     def __getitem__(self, row: int) -> list[T]:
         """Get the value at a given row in the grid.
