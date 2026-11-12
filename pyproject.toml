@@ -31,6 +31,7 @@ dev = [
     "ruff",
     "mypy",
     "isort",
+    "debugpy",
     "types-networkx",
     "scipy-stubs",
     "types-shapely",
