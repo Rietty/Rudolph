@@ -95,13 +95,13 @@ def main(**kwargs: Unpack[MainKwargs]) -> None:
 
     except ValueError as e:
         log.error(f"{e}")
-        raise e
+        raise
     except ModuleNotFoundError as e:
         log.error(f"{e}")
-        raise e
+        raise
     except Exception as e:
         log.error(f"{e}")
-        raise e
+        raise
 
 
 if __name__ == "__main__":
